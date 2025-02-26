@@ -1,0 +1,16 @@
+{
+  "programs": [
+    {
+      "enabled": true,
+      "title": "100分de名著シリーズ"
+    },
+    {
+      "enabled": true,
+      "title": "ザ・バックヤード"
+    },
+    {
+      "enabled": false,
+      "title": "みんなのうた"
+    }
+  ]
+}
