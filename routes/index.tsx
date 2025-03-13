@@ -3,9 +3,14 @@ import PageCard from "../components/PageCard.tsx";
 export default function Home() {
   const settings = [
     {
-      name: "Program",
-      description: `通知したい番組を設定`,
-      link: `/program`,
+      name: "Program List",
+      description: `視聴番組の放送情報を表示`,
+      link: `/programs/list`,
+    },
+    {
+      name: "Program Setting",
+      description: `視聴番組の設定`,
+      link: `/programs/setting`,
     },
     {
       name: "NHK API",

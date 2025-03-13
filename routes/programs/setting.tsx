@@ -1,13 +1,13 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { configProgramsService } from "../backend/bean.ts";
+import { configProgramsService } from "../../backend/bean.ts";
 import {
   getErrorMessageOnCookie,
   setErrorMessageOnCookie,
-} from "../backend/cookie.ts";
-import { ConfigProgram } from "../backend/schema.ts";
-import { HomeButton } from "../components/HomeButton.tsx";
-import ProgramForm from "../islands/ProgramForm.tsx";
-import { WithErrorMessage } from "./types.ts";
+} from "../../backend/cookie.ts";
+import { ConfigProgram } from "../../backend/schema.ts";
+import { HomeButton } from "../../components/HomeButton.tsx";
+import ProgramForm from "../../islands/ProgramForm.tsx";
+import { WithErrorMessage } from "../types.ts";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
