@@ -13,14 +13,9 @@ export default function Home() {
       link: `/programs/setting`,
     },
     {
-      name: "NHK API",
-      description: `放送エリアとAPIキーを設定`,
-      link: `/nhkapi`,
-    },
-    {
-      name: "Notification",
+      name: "Settings",
       description: `通知先の情報を設定`,
-      link: `/notification`,
+      link: `/settings`,
     },
   ];
 

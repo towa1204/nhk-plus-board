@@ -8,10 +8,9 @@ import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
 import * as $_middleware from "./routes/_middleware.ts";
 import * as $index from "./routes/index.tsx";
-import * as $nhkapi from "./routes/nhkapi.tsx";
-import * as $notification from "./routes/notification.tsx";
 import * as $programs_list from "./routes/programs/list.tsx";
 import * as $programs_setting from "./routes/programs/setting.tsx";
+import * as $settings from "./routes/settings.tsx";
 import * as $types from "./routes/types.ts";
 import * as $Input from "./islands/Input.tsx";
 import * as $ProgramForm from "./islands/ProgramForm.tsx";
@@ -26,10 +25,9 @@ const manifest = {
     "./routes/_layout.tsx": $_layout,
     "./routes/_middleware.ts": $_middleware,
     "./routes/index.tsx": $index,
-    "./routes/nhkapi.tsx": $nhkapi,
-    "./routes/notification.tsx": $notification,
     "./routes/programs/list.tsx": $programs_list,
     "./routes/programs/setting.tsx": $programs_setting,
+    "./routes/settings.tsx": $settings,
     "./routes/types.ts": $types,
   },
   islands: {

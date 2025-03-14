@@ -1,3 +1,4 @@
+import { HomeButton } from "../../components/HomeButton.tsx";
 import ProgramCard from "../../components/ProgramCard.tsx";
 
 const title =
@@ -23,14 +24,14 @@ export default function ProgramListPage() {
     <div className="bg-white py-8 px-4 max-w-4xl mx-auto">
       {/* 番組一覧 */}
       <h1 className="text-2xl font-bold text-center mb-4">番組一覧</h1>
-      <ul className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+      <ul className="flex flex-row flex-wrap justify-center gap-4 mb-8">
         {programTitles.map((title) => (
           <li key={title}>
             <a
               href={`#${title}`}
-              className="text-blue-500 text-xl font-bold hover:underline py-2 px-4"
+              className="bg-sky-500 text-white text-center px-4 py-2 rounded-lg hover:bg-sky-600 transition duration-200 w-full sm:w-auto max-w-xs"
             >
-              ・{title}
+              {title}
             </a>
           </li>
         ))}
@@ -51,6 +52,9 @@ export default function ProgramListPage() {
             thumbnail={thumbnail}
           />
         </section>
+      </div>
+      <div class="mt-2">
+        <HomeButton />
       </div>
     </div>
   );
