@@ -60,17 +60,6 @@ export default function NotificationPage(
   return (
     <>
       <div className="rounded-md border border-gray-200/60 bg-gray-100/30 p-6">
-        <header className="mb-4 flex justify-between gap-3">
-          <hgroup>
-            <h2 className="text-lg font-medium !leading-none text-black">
-              Notification
-            </h2>
-            <h3 className="mt-1 !leading-tight text-gray-500">
-              通知先の情報を設定
-            </h3>
-          </hgroup>
-        </header>
-
         {errorMessage && (
           <div
             class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
@@ -81,6 +70,17 @@ export default function NotificationPage(
         )}
 
         <form method="post">
+          <header className="mb-4 flex justify-between gap-3">
+            <hgroup>
+              <h2 className="text-lg font-medium !leading-none text-black">
+                Notification Target
+              </h2>
+              <p className="mt-1 !leading-tight text-gray-500">
+                通知先の情報を設定
+              </p>
+            </hgroup>
+          </header>
+
           <Select
             name="type"
             selected={selectNow}
@@ -90,24 +90,20 @@ export default function NotificationPage(
           <div className="mt-5">
             <header className="mb-4 flex justify-between gap-3">
               <hgroup>
-                <h3 className="mt-1 font-medium !leading-tight text-black">
-                  LINE API
-                </h3>
+                <h2 className="mt-1 font-medium !leading-tight text-black">
+                  Cosense Project
+                </h2>
+                <p className="mt-1 !leading-tight text-gray-500">
+                  番組メモ用のプロジェクト名を設定
+                </p>
               </hgroup>
             </header>
 
             <Input
-              name="userid"
-              placeholder="ユーザID"
+              name="project"
+              placeholder="project name"
               isSecret={false}
               value={LineApi.userid}
-            />
-
-            <Input
-              name="token"
-              placeholder="アクセストークン"
-              isSecret
-              value={LineApi.accessToken}
             />
           </div>
 

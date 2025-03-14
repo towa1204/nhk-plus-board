@@ -5,7 +5,7 @@ export default function Layout({ Component }: PageProps) {
     <>
       <header className="flex w-full items-center justify-start space-x-4 px-4 py-4">
         <div className="text-2xl font-bold">
-          <a href="/">nhk-program-notify</a>
+          <a href="/">NHK Plus Board</a>
         </div>
       </header>
       <div className="mx-auto w-full px-4 md:max-w-7xl">
