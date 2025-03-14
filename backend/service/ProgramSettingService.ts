@@ -3,7 +3,7 @@ import { ConfigProgram, ConfigProgramSchema } from "../schema.ts";
 import { createErrorMessage } from "../common/util.ts";
 import { NotFoundConfigError } from "../common/exception.ts";
 
-export class ConfigProgramsService {
+export class ProgramSettingService {
   private readonly repository: Repository<ConfigProgram>;
 
   constructor(repository: Repository<ConfigProgram>) {

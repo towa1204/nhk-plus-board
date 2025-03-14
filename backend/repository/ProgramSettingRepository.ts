@@ -3,7 +3,7 @@ import { NotFoundConfigError, SetConfigError } from "../common/exception.ts";
 import { KV_KEYS } from "../common/kv_key.ts";
 import { Repository } from "../common/types.ts";
 
-export class ConfigProgramRepository implements Repository<ConfigProgram> {
+export class ProgramSettingRepository implements Repository<ConfigProgram> {
   #kv: Deno.Kv;
 
   constructor(kv: Deno.Kv) {
