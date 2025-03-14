@@ -18,11 +18,14 @@ export const NhkApiSchema = z.object({
 export type NhkApi = z.infer<typeof NhkApiSchema>;
 
 export const AppSettingSchema = z.object({
-  selectNow: z.literal("LINE"),
-  LineApi: z.object({
-    userid: z.string().nonempty(),
-    accessToken: z.string().nonempty(),
-  }),
+  /* 通知先 */
+  notificationTarget: z.union([
+    z.literal("LINE"),
+    z.literal("Discord"),
+    z.null(),
+  ]),
+  /* Cosenseプロジェクト名 */
+  cosenseProject: z.union([z.string().nonempty(), z.null()]),
 });
 export type AppSetting = z.infer<typeof AppSettingSchema>;
 

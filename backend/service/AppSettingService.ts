@@ -3,6 +3,12 @@ import { AppSetting, AppSettingSchema } from "../schema.ts";
 import { createErrorMessage } from "../common/util.ts";
 import { NotFoundConfigError } from "../common/exception.ts";
 
+type ToUnknown<T> = {
+  [K in keyof T]: unknown;
+};
+
+export type UnknownAppSetting = ToUnknown<AppSetting>;
+
 export class AppSettingService {
   private readonly repository: Repository<AppSetting>;
 
@@ -16,18 +22,19 @@ export class AppSettingService {
     } catch (e) {
       if (e instanceof NotFoundConfigError) {
         return Promise.resolve({
-          selectNow: "LINE",
-          LineApi: {
-            userid: "",
-            accessToken: "",
-          },
+          notificationTarget: null,
+          cosenseProject: null,
         });
       }
       throw e;
     }
   }
 
-  async validateAndSave(value: unknown) {
+  async validateAndSave(value: UnknownAppSetting) {
+    /* フォームで空文字で送られてきたときは未設定扱い */
+    if (value.notificationTarget === "") value.notificationTarget = null;
+    if (value.cosenseProject === "") value.cosenseProject = null;
+
     const result = AppSettingSchema.safeParse(value);
     if (!result.success) {
       return {

@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { programSettingService } from "../../backend/bean.ts";
+import { programSettingService } from "../../backend/init.ts";
 import {
   getErrorMessageOnCookie,
   setErrorMessageOnCookie,

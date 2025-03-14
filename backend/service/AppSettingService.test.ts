@@ -22,26 +22,20 @@ Deno.test("AppSettingService", async (t) => {
     const service = new AppSettingService(repository);
     const result = await service.get();
     assertEquals(result, {
-      "selectNow": "LINE",
-      "LineApi": {
-        "userid": "user-id",
-        "accessToken": "access-token",
-      },
+      "notificationTarget": "LINE",
+      "cosenseProject": "cosense-project",
     });
 
     kv.close();
   });
 
-  await t.step("useridを変更できる", async () => {
+  await t.step("プロジェクト名を変更できる", async () => {
     const { kv, repository } = await setup();
 
     const service = new AppSettingService(repository);
     const result = await service.validateAndSave({
-      "selectNow": "LINE",
-      "LineApi": {
-        "userid": "user-id-changed",
-        "accessToken": "access-token",
-      },
+      "notificationTarget": "LINE",
+      "cosenseProject": "new-project",
     });
     assertEquals(result.success, true);
     assertEquals(result.message, null);
@@ -49,18 +43,36 @@ Deno.test("AppSettingService", async (t) => {
     kv.close();
   });
 
-  await t.step("accessTokenがなくバリデーションエラー", async () => {
+  await t.step("存在しない通知先でバリデーションエラー", async () => {
     const { kv, repository } = await setup();
 
     const service = new AppSettingService(repository);
     const result = await service.validateAndSave({
-      "selectNow": "LINE",
-      "LineApi": {
-        "userid": "user-id",
-      },
+      "notificationTarget": "test",
+      "cosenseProject": "cosense-project",
     });
     assertEquals(result.success, false);
-    assertEquals(result.message, ["LineApi.accessToken: Required"]);
+    assertEquals(result.message, ["notificationTarget: Invalid input"]);
+
+    kv.close();
+  });
+
+  await t.step("空文字が指定されたとき未設定(null)扱い", async () => {
+    const { kv, repository } = await setup();
+
+    const service = new AppSettingService(repository);
+    const validateResult = await service.validateAndSave({
+      "notificationTarget": "",
+      "cosenseProject": "",
+    });
+    assertEquals(validateResult.success, true);
+    assertEquals(validateResult.message, null);
+
+    const result = await repository.get();
+    assertEquals(result, {
+      "notificationTarget": null,
+      "cosenseProject": null,
+    });
 
     kv.close();
   });

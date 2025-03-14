@@ -9,6 +9,7 @@ import { ProgramSettingService } from "./service/ProgramSettingService.ts";
 import { MainFlowService } from "./service/MainFlowService.ts";
 import { NhkProgramService } from "./service/NhkProgramService.ts";
 import { NotificationService } from "./service/NotificationService.ts";
+import { env } from "../env.ts";
 
 export function createBeans(kv: Deno.Kv) {
   const configNhkApiRepository = new ConfigNhkApiRepository(kv);
@@ -24,7 +25,10 @@ export function createBeans(kv: Deno.Kv) {
   );
 
   const nhkClient = new NhkClient(configNhkApiRepository);
-  const lineClient = new LineClient(appSettingRepository);
+  const lineClient = new LineClient({
+    userid: env("LINE_API_USER_ID"),
+    accessToken: env("LINE_API_TOKEN"),
+  });
   const nhkProgramService = new NhkProgramService(
     nhkClient,
     programSettingRepository,
@@ -45,16 +49,3 @@ export function createBeans(kv: Deno.Kv) {
     mainFlowService,
   };
 }
-
-const kv = Deno.env.get("KV_PATH") === undefined
-  ? await Deno.openKv()
-  : await Deno.openKv(Deno.env.get("KV_PATH")!);
-
-export const {
-  configNhkApiService,
-  appSettingService,
-  programSettingService,
-  nhkProgramService,
-  notificationService,
-  mainFlowService,
-} = createBeans(kv);

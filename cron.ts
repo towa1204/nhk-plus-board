@@ -1,4 +1,4 @@
-import { mainFlowService } from "./backend/bean.ts";
+import { mainFlowService } from "./backend/init.ts";
 import { today, week } from "./backend/common/date.ts";
 
 export function cron() {

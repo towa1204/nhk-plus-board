@@ -7,7 +7,7 @@ import {
   setErrorMessageOnCookie,
 } from "../backend/cookie.ts";
 import { AppSetting } from "../backend/schema.ts";
-import { appSettingService } from "../backend/bean.ts";
+import { appSettingService } from "../backend/init.ts";
 import { WithErrorMessage } from "./types.ts";
 import { HomeButton } from "../components/HomeButton.tsx";
 
@@ -15,10 +15,10 @@ export const handler: Handlers = {
   async GET(req, ctx) {
     const { message, resHeaders } = getErrorMessageOnCookie(req.headers);
 
-    const notificationProps = await appSettingService.get();
+    const appSettingProps = await appSettingService.get();
 
     const initData: WithErrorMessage<AppSetting> = {
-      ...notificationProps,
+      ...appSettingProps,
       errorMessage: message,
     };
 
@@ -27,20 +27,13 @@ export const handler: Handlers = {
   async POST(req, ctx) {
     const form = await req.formData();
 
-    // const selectType = form.get("type") as string;
-    const userid = form.get("userid") as string;
-    const accessToken = form.get("token") as string;
-
     const resHeaders = new Headers({
       "Location": ctx.url.pathname,
     });
 
     const result = await appSettingService.validateAndSave({
-      selectNow: "LINE",
-      LineApi: {
-        userid,
-        accessToken,
-      },
+      notificationTarget: form.get("target"),
+      cosenseProject: form.get("project"),
     });
     if (!result.success) {
       setErrorMessageOnCookie(resHeaders, result.message.join("\n"));
@@ -56,7 +49,7 @@ export const handler: Handlers = {
 export default function NotificationPage(
   { data }: PageProps<WithErrorMessage<AppSetting>>,
 ) {
-  const { selectNow, LineApi, errorMessage } = data;
+  const { notificationTarget, cosenseProject, errorMessage } = data;
   return (
     <>
       <div className="rounded-md border border-gray-200/60 bg-gray-100/30 p-6">
@@ -82,9 +75,19 @@ export default function NotificationPage(
           </header>
 
           <Select
-            name="type"
-            selected={selectNow}
-            options={[{ value: selectNow, label: selectNow }]}
+            name="target"
+            selected={notificationTarget ?? ""}
+            options={[
+              {
+                value: "LINE",
+                label: "LINE",
+              },
+              {
+                value: "Discord",
+                label: "Discord",
+              },
+              { value: "", label: "未設定" },
+            ]}
           />
 
           <div className="mt-5">
@@ -103,7 +106,7 @@ export default function NotificationPage(
               name="project"
               placeholder="project name"
               isSecret={false}
-              value={LineApi.userid}
+              value={cosenseProject ?? ""}
             />
           </div>
 
