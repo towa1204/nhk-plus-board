@@ -10,7 +10,7 @@ async function setup() {
   await setTestDataFromFile(
     kv,
     KV_KEYS.PROGRAMS,
-    "backend/testdata/config_programs.json",
+    "backend/testdata/example_programsetting.json",
   );
   return { kv, repository };
 }

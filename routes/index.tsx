@@ -14,7 +14,7 @@ export default function Home() {
     },
     {
       name: "Settings",
-      description: `通知先の情報を設定`,
+      description: `アプリ全般の設定`,
       link: `/settings`,
     },
   ];

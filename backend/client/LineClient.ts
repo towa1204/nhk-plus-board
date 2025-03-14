@@ -1,6 +1,6 @@
 import { ApiClientError } from "../common/exception.ts";
 import { Repository } from "../common/types.ts";
-import { Notification } from "../schema.ts";
+import { AppSetting } from "../schema.ts";
 
 export interface ILineClient {
   send: (message: string) => Promise<void>;
@@ -9,9 +9,9 @@ export interface ILineClient {
 export class LineClient implements ILineClient {
   private static readonly MESSAGING_API_BASE_PATH = "https://api.line.me/v2";
 
-  private readonly repository: Repository<Notification>;
+  private readonly repository: Repository<AppSetting>;
 
-  constructor(repository: Repository<Notification>) {
+  constructor(repository: Repository<AppSetting>) {
     this.repository = repository;
   }
 

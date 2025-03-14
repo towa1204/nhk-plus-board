@@ -1,25 +1,25 @@
 import { setTestDataFromFile } from "../common/kv_test_helper.ts";
 import { KV_KEYS } from "../common/kv_key.ts";
 import { assertEquals } from "@std/assert";
-import { ConfigNotificationRepository } from "../repository/ConfigNotificationRepository.ts";
-import { ConfigNotificationService } from "./ConfigNotificationService.ts";
+import { AppSettingRepository } from "../repository/AppSettingRepository.ts";
+import { AppSettingService } from "./AppSettingService.ts";
 
 async function setup() {
   const kv = await Deno.openKv(":memory:");
-  const repository = new ConfigNotificationRepository(kv);
+  const repository = new AppSettingRepository(kv);
   await setTestDataFromFile(
     kv,
-    KV_KEYS.NOTIFICATION,
-    "backend/testdata/config_notification.json",
+    KV_KEYS.APPSETTING,
+    "backend/testdata/example_appsetting.json",
   );
   return { kv, repository };
 }
 
-Deno.test("ConfigNotificationService", async (t) => {
+Deno.test("AppSettingService", async (t) => {
   await t.step("データを取得できる", async () => {
     const { kv, repository } = await setup();
 
-    const service = new ConfigNotificationService(repository);
+    const service = new AppSettingService(repository);
     const result = await service.get();
     assertEquals(result, {
       "selectNow": "LINE",
@@ -35,7 +35,7 @@ Deno.test("ConfigNotificationService", async (t) => {
   await t.step("useridを変更できる", async () => {
     const { kv, repository } = await setup();
 
-    const service = new ConfigNotificationService(repository);
+    const service = new AppSettingService(repository);
     const result = await service.validateAndSave({
       "selectNow": "LINE",
       "LineApi": {
@@ -52,7 +52,7 @@ Deno.test("ConfigNotificationService", async (t) => {
   await t.step("accessTokenがなくバリデーションエラー", async () => {
     const { kv, repository } = await setup();
 
-    const service = new ConfigNotificationService(repository);
+    const service = new AppSettingService(repository);
     const result = await service.validateAndSave({
       "selectNow": "LINE",
       "LineApi": {

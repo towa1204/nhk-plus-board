@@ -1,13 +1,13 @@
 import { env } from "../../env.ts";
 import { LineClient } from "./LineClient.ts";
 import { Repository } from "../common/types.ts";
-import { Notification } from "../schema.ts";
+import { AppSetting } from "../schema.ts";
 import { returnsNext, stub } from "@std/testing/mock";
 import { assertRejects } from "@std/assert";
 import { ApiClientError } from "../common/exception.ts";
 
 function setup(userid: string, accessToken: string) {
-  const mockRepository: Repository<Notification> = {
+  const mockRepository: Repository<AppSetting> = {
     async get() {
       return await Promise.resolve({
         selectNow: "LINE",

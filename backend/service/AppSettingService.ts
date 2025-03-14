@@ -1,16 +1,16 @@
 import { Repository } from "../common/types.ts";
-import { Notification, NotificationSchema } from "../schema.ts";
+import { AppSetting, AppSettingSchema } from "../schema.ts";
 import { createErrorMessage } from "../common/util.ts";
 import { NotFoundConfigError } from "../common/exception.ts";
 
-export class ConfigNotificationService {
-  private readonly repository: Repository<Notification>;
+export class AppSettingService {
+  private readonly repository: Repository<AppSetting>;
 
-  constructor(repository: Repository<Notification>) {
+  constructor(repository: Repository<AppSetting>) {
     this.repository = repository;
   }
 
-  async get(): Promise<Notification> {
+  async get(): Promise<AppSetting> {
     try {
       return await this.repository.get();
     } catch (e) {
@@ -28,7 +28,7 @@ export class ConfigNotificationService {
   }
 
   async validateAndSave(value: unknown) {
-    const result = NotificationSchema.safeParse(value);
+    const result = AppSettingSchema.safeParse(value);
     if (!result.success) {
       return {
         success: false,

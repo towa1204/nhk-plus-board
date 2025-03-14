@@ -34,7 +34,7 @@ async function setup() {
       },
     },
     {
-      key: KV_KEYS.NOTIFICATION,
+      key: KV_KEYS.APPSETTING,
       object: {
         "selectNow": "LINE",
         "LineApi": {

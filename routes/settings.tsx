@@ -6,8 +6,8 @@ import {
   getErrorMessageOnCookie,
   setErrorMessageOnCookie,
 } from "../backend/cookie.ts";
-import { Notification } from "../backend/schema.ts";
-import { configNotificationService } from "../backend/bean.ts";
+import { AppSetting } from "../backend/schema.ts";
+import { appSettingService } from "../backend/bean.ts";
 import { WithErrorMessage } from "./types.ts";
 import { HomeButton } from "../components/HomeButton.tsx";
 
@@ -15,9 +15,9 @@ export const handler: Handlers = {
   async GET(req, ctx) {
     const { message, resHeaders } = getErrorMessageOnCookie(req.headers);
 
-    const notificationProps = await configNotificationService.get();
+    const notificationProps = await appSettingService.get();
 
-    const initData: WithErrorMessage<Notification> = {
+    const initData: WithErrorMessage<AppSetting> = {
       ...notificationProps,
       errorMessage: message,
     };
@@ -35,7 +35,7 @@ export const handler: Handlers = {
       "Location": ctx.url.pathname,
     });
 
-    const result = await configNotificationService.validateAndSave({
+    const result = await appSettingService.validateAndSave({
       selectNow: "LINE",
       LineApi: {
         userid,
@@ -54,7 +54,7 @@ export const handler: Handlers = {
 };
 
 export default function NotificationPage(
-  { data }: PageProps<WithErrorMessage<Notification>>,
+  { data }: PageProps<WithErrorMessage<AppSetting>>,
 ) {
   const { selectNow, LineApi, errorMessage } = data;
   return (
