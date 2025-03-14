@@ -1,7 +1,9 @@
-import { Repository } from "../common/types.ts";
+import { Repository, ToUnknown } from "../common/types.ts";
 import { ConfigProgram, ConfigProgramSchema } from "../schema.ts";
 import { createErrorMessage } from "../common/util.ts";
 import { NotFoundConfigError } from "../common/exception.ts";
+
+export type UnknownConfigProgram = ToUnknown<ConfigProgram>;
 
 export class ProgramSettingService {
   private readonly repository: Repository<ConfigProgram>;
@@ -23,7 +25,7 @@ export class ProgramSettingService {
     }
   }
 
-  async validateAndSave(value: unknown) {
+  async validateAndSave(value: UnknownConfigProgram) {
     const result = ConfigProgramSchema.safeParse(value);
     if (!result.success) {
       return {

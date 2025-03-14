@@ -1,11 +1,7 @@
-import { Repository } from "../common/types.ts";
+import { Repository, ToUnknown } from "../common/types.ts";
 import { AppSetting, AppSettingSchema } from "../schema.ts";
 import { createErrorMessage } from "../common/util.ts";
 import { NotFoundConfigError } from "../common/exception.ts";
-
-type ToUnknown<T> = {
-  [K in keyof T]: unknown;
-};
 
 export type UnknownAppSetting = ToUnknown<AppSetting>;
 
