@@ -1,25 +1,25 @@
 import { setTestDataFromFile } from "../common/kv_test_helper.ts";
 import { KV_KEYS } from "../common/kv_key.ts";
 import { assertEquals } from "@std/assert";
-import { ConfigProgramRepository } from "../repository/ConfigProgramRepository.ts";
-import { ConfigProgramsService } from "./ConfigProgramsService.ts";
+import { ProgramSettingRepository } from "../repository/ProgramSettingRepository.ts";
+import { ProgramSettingService } from "./ProgramSettingService.ts";
 
 async function setup() {
   const kv = await Deno.openKv(":memory:");
-  const repository = new ConfigProgramRepository(kv);
+  const repository = new ProgramSettingRepository(kv);
   await setTestDataFromFile(
     kv,
     KV_KEYS.PROGRAMS,
-    "backend/testdata/config_programs.json",
+    "backend/testdata/example_programsetting.json",
   );
   return { kv, repository };
 }
 
-Deno.test("ConfigProgramsService", async (t) => {
+Deno.test("ProgramSettingService", async (t) => {
   await t.step("データを取得できる", async () => {
     const { kv, repository } = await setup();
 
-    const service = new ConfigProgramsService(repository);
+    const service = new ProgramSettingService(repository);
     const result = await service.get();
     assertEquals(result, {
       "programs": [
@@ -44,7 +44,7 @@ Deno.test("ConfigProgramsService", async (t) => {
   await t.step("番組(みんなのうた)を削除できる", async () => {
     const { kv, repository } = await setup();
 
-    const service = new ConfigProgramsService(repository);
+    const service = new ProgramSettingService(repository);
     const result = await service.validateAndSave({
       "programs": [
         {
@@ -66,7 +66,7 @@ Deno.test("ConfigProgramsService", async (t) => {
   await t.step("すべての番組を削除できる", async () => {
     const { kv, repository } = await setup();
 
-    const service = new ConfigProgramsService(repository);
+    const service = new ProgramSettingService(repository);
     const result = await service.validateAndSave({
       "programs": [],
     });
@@ -79,7 +79,7 @@ Deno.test("ConfigProgramsService", async (t) => {
   await t.step("番組を空文字で送信するとバリデーションエラー", async () => {
     const { kv, repository } = await setup();
 
-    const service = new ConfigProgramsService(repository);
+    const service = new ProgramSettingService(repository);
     const result = await service.validateAndSave({
       "programs": [
         {

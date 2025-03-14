@@ -34,12 +34,12 @@ async function setup() {
       },
     },
     {
-      key: KV_KEYS.NOTIFICATION,
+      key: KV_KEYS.APPSETTING,
       object: {
         "selectNow": "LINE",
         "LineApi": {
-          "userid": env("TEST_LINE_API_USER_ID"),
-          "accessToken": env("TEST_LINE_API_TOKEN"),
+          "userid": env("LINE_API_USER_ID"),
+          "accessToken": env("LINE_API_TOKEN"),
         },
       },
     },

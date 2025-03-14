@@ -1,34 +1,28 @@
 import { LineClient } from "./client/LineClient.ts";
-import { NhkClient } from "./client/NhkClient.ts";
-import { ConfigNhkApiRepository } from "./repository/ConfigNhkApiRepository.ts";
-import { ConfigNotificationRepository } from "./repository/ConfigNotificationRepository.ts";
-import { ConfigProgramRepository } from "./repository/ConfigProgramRepository.ts";
-import { ConfigNhkApiService } from "./service/ConfigNhkApiService.ts";
-import { ConfigNotificationService } from "./service/ConfigNotificationService.ts";
-import { ConfigProgramsService } from "./service/ConfigProgramsService.ts";
+import { AppSettingRepository } from "./repository/AppSettingRepository.ts";
+import { ProgramSettingRepository } from "./repository/ProgramSettingRepository.ts";
+import { AppSettingService } from "./service/AppSettingService.ts";
+import { ProgramSettingService } from "./service/ProgramSettingService.ts";
 import { MainFlowService } from "./service/MainFlowService.ts";
-import { NhkProgramService } from "./service/NhkProgramService.ts";
 import { NotificationService } from "./service/NotificationService.ts";
+import { env } from "../env.ts";
 
 export function createBeans(kv: Deno.Kv) {
-  const configNhkApiRepository = new ConfigNhkApiRepository(kv);
-  const configNotificationRepository = new ConfigNotificationRepository(kv);
-  const configProgramRepository = new ConfigProgramRepository(kv);
+  const appSettingRepository = new AppSettingRepository(kv);
+  const programSettingRepository = new ProgramSettingRepository(kv);
 
-  const configNhkApiService = new ConfigNhkApiService(configNhkApiRepository);
-  const configNotificationService = new ConfigNotificationService(
-    configNotificationRepository,
+  const appSettingService = new AppSettingService(
+    appSettingRepository,
   );
-  const configProgramsService = new ConfigProgramsService(
-    configProgramRepository,
+  const programSettingService = new ProgramSettingService(
+    programSettingRepository,
   );
 
-  const nhkClient = new NhkClient(configNhkApiRepository);
-  const lineClient = new LineClient(configNotificationRepository);
-  const nhkProgramService = new NhkProgramService(
-    nhkClient,
-    configProgramRepository,
-  );
+  const lineClient = new LineClient({
+    userid: env("LINE_API_USER_ID"),
+    accessToken: env("LINE_API_TOKEN"),
+  });
+
   const notificationService = new NotificationService(lineClient);
 
   const mainFlowService = new MainFlowService(
@@ -37,24 +31,10 @@ export function createBeans(kv: Deno.Kv) {
   );
 
   return {
-    configNhkApiService,
-    configNotificationService,
-    configProgramsService,
+    appSettingService,
+    programSettingService,
     nhkProgramService,
     notificationService,
     mainFlowService,
   };
 }
-
-const kv = Deno.env.get("KV_PATH") === undefined
-  ? await Deno.openKv()
-  : await Deno.openKv(Deno.env.get("KV_PATH")!);
-
-export const {
-  configNhkApiService,
-  configNotificationService,
-  configProgramsService,
-  nhkProgramService,
-  notificationService,
-  mainFlowService,
-} = createBeans(kv);

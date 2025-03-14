@@ -8,3 +8,7 @@ export interface Repository<T> {
 export interface IConfigRepository {
   get: () => Promise<Config | null>;
 }
+
+export type ToUnknown<T> = {
+  [K in keyof T]: unknown;
+};

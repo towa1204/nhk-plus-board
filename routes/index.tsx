@@ -1,4 +1,4 @@
-import PageCard from "../components/PageCard.tsx";
+import PageInfoCard from "../components/PageInfoCard.tsx";
 
 export default function Home() {
   const settings = [
@@ -14,18 +14,16 @@ export default function Home() {
     },
     {
       name: "Settings",
-      description: `通知先の情報を設定`,
+      description: `アプリ全般の設定`,
       link: `/settings`,
     },
   ];
 
   return (
-    <>
-      <div className="space-y-4">
-        {settings.map(({ name, description, link }) => (
-          <PageCard name={name} description={description} link={link} />
-        ))}
-      </div>
-    </>
+    <div className="space-y-4">
+      {settings.map(({ name, description, link }) => (
+        <PageInfoCard name={name} description={description} link={link} />
+      ))}
+    </div>
   );
 }

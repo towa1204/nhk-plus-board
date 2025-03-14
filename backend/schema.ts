@@ -17,17 +17,20 @@ export const NhkApiSchema = z.object({
 });
 export type NhkApi = z.infer<typeof NhkApiSchema>;
 
-export const NotificationSchema = z.object({
-  selectNow: z.literal("LINE"),
-  LineApi: z.object({
-    userid: z.string().nonempty(),
-    accessToken: z.string().nonempty(),
-  }),
+export const AppSettingSchema = z.object({
+  /* 通知先 */
+  notificationTarget: z.union([
+    z.literal("LINE"),
+    z.literal("Discord"),
+    z.null(),
+  ]),
+  /* Cosenseプロジェクト名 */
+  cosenseProject: z.union([z.string().nonempty(), z.null()]),
 });
-export type Notification = z.infer<typeof NotificationSchema>;
+export type AppSetting = z.infer<typeof AppSettingSchema>;
 
 export const ConfigSchema = ConfigProgramSchema
   .merge(NhkApiSchema)
-  .merge(NotificationSchema);
+  .merge(AppSettingSchema);
 
 export type Config = z.infer<typeof ConfigSchema>;

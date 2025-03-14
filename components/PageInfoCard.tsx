@@ -1,4 +1,7 @@
-export default function AppCard(
+/**
+ * ページへのリンクと説明文を表示するカード
+ */
+export default function PageInfoCard(
   { link, name, description }: {
     link: string;
     name: string;
