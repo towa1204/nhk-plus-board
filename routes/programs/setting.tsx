@@ -4,7 +4,7 @@ import {
   getErrorMessageOnCookie,
   setErrorMessageOnCookie,
 } from "../../backend/cookie.ts";
-import { ConfigProgram } from "../../backend/schema.ts";
+import { WatchProgramKeys } from "../../backend/model.ts";
 import { HomeButton } from "../../components/HomeButton.tsx";
 import ProgramForm from "../../islands/ProgramForm.tsx";
 import { WithErrorMessage } from "../types.ts";
@@ -15,7 +15,7 @@ export const handler: Handlers = {
 
     const programProps = await programSettingService.get();
 
-    const initData: WithErrorMessage<ConfigProgram> = {
+    const initData: WithErrorMessage<WatchProgramKeys> = {
       ...programProps,
       errorMessage: message,
     };
@@ -50,7 +50,7 @@ export const handler: Handlers = {
 };
 
 export default function ProgramPage(
-  { data }: PageProps<WithErrorMessage<ConfigProgram>>,
+  { data }: PageProps<WithErrorMessage<WatchProgramKeys>>,
 ) {
   const { errorMessage } = data;
 

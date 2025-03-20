@@ -6,7 +6,7 @@ import {
   getErrorMessageOnCookie,
   setErrorMessageOnCookie,
 } from "../backend/cookie.ts";
-import { AppSetting } from "../backend/schema.ts";
+import { AppSetting } from "../backend/model.ts";
 import { appSettingService } from "../backend/init.ts";
 import { WithErrorMessage } from "./types.ts";
 import { HomeButton } from "../components/HomeButton.tsx";

@@ -1,5 +1,5 @@
 import { Repository, ToUnknown } from "../common/types.ts";
-import { AppSetting, AppSettingSchema } from "../schema.ts";
+import { AppSetting, AppSettingSchema } from "../model.ts";
 import { createErrorMessage } from "../common/util.ts";
 import { NotFoundConfigError } from "../common/exception.ts";
 

@@ -1,10 +1,10 @@
 import { useState } from "preact/hooks";
 import SaveButton from "../components/SaveButton.tsx";
 import ProgramInput from "./ProgramInput.tsx";
-import { ConfigProgram } from "../backend/schema.ts";
+import { WatchProgramKeys } from "../backend/model.ts";
 
 export default function ProgramForm(
-  { initData }: { initData: ConfigProgram },
+  { initData }: { initData: WatchProgramKeys },
 ) {
   const [programs, setPrograms] = useState(initData.programs);
 

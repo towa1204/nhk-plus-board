@@ -1,7 +1,7 @@
-import { Program, WatchProgram } from "../client/nhk_types.ts";
-import { ConfigProgram } from "../schema.ts";
+import { Program, WatchProgram } from "../client/nhk_api_types.ts";
+import { WatchProgramKeys } from "../model.ts";
 
-export const configProgram: ConfigProgram = {
+export const configProgram: WatchProgramKeys = {
   "programs": [
     {
       "enabled": true,

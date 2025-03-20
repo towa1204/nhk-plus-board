@@ -1,5 +1,5 @@
 import { ApiClientError } from "../common/exception.ts";
-import { PlaylistResponse } from "../common/nhk_types.ts";
+import { PlaylistResponse } from "./nhk_api_types.ts";
 
 export interface INhkPlusClient {
   searchPrograms: (keyword: string) => Promise<PlaylistResponse>;

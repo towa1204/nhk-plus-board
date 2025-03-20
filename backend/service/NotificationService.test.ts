@@ -1,6 +1,6 @@
 import { ILineClient } from "../client/LineClient.ts";
 import { NotificationService } from "./NotificationService.ts";
-import { WatchProgram } from "../client/nhk_types.ts";
+import { WatchProgram } from "../client/nhk_api_types.ts";
 import { assertSpyCallAsync, assertSpyCalls, spy } from "@std/testing/mock";
 import { allWatchPrograms } from "../testdata/sample.ts";
 

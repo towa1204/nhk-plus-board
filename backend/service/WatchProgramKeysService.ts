@@ -1,18 +1,18 @@
 import { Repository, ToUnknown } from "../common/types.ts";
-import { ConfigProgram, ConfigProgramSchema } from "../schema.ts";
+import { WatchProgramKeys, WatchProgramKeysSchema } from "../model.ts";
 import { createErrorMessage } from "../common/util.ts";
 import { NotFoundConfigError } from "../common/exception.ts";
 
-export type UnknownConfigProgram = ToUnknown<ConfigProgram>;
+export type UnknownConfigProgram = ToUnknown<WatchProgramKeys>;
 
-export class ProgramSettingService {
-  private readonly repository: Repository<ConfigProgram>;
+export class WatchProgramKeysService {
+  private readonly repository: Repository<WatchProgramKeys>;
 
-  constructor(repository: Repository<ConfigProgram>) {
+  constructor(repository: Repository<WatchProgramKeys>) {
     this.repository = repository;
   }
 
-  async get(): Promise<ConfigProgram> {
+  async get(): Promise<WatchProgramKeys> {
     try {
       return await this.repository.get();
     } catch (e) {
@@ -26,7 +26,7 @@ export class ProgramSettingService {
   }
 
   async validateAndSave(value: UnknownConfigProgram) {
-    const result = ConfigProgramSchema.safeParse(value);
+    const result = WatchProgramKeysSchema.safeParse(value);
     if (!result.success) {
       return {
         success: false,

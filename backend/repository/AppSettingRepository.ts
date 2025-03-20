@@ -1,4 +1,4 @@
-import { AppSetting } from "../schema.ts";
+import { AppSetting } from "../model.ts";
 import { NotFoundConfigError, SetConfigError } from "../common/exception.ts";
 import { KV_KEYS } from "../common/kv_key.ts";
 import { Repository } from "../common/types.ts";
