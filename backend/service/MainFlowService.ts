@@ -1,20 +1,16 @@
-// import { INhkProgramService } from "./NhkProgramService.ts";
-import { INotificationService } from "./NotificationService.ts";
+import { INhkPlusProgramService } from "./NhkPlusProgramService.ts";
 
 export class MainFlowService {
-  // private readonly nhkProgramService: INhkProgramService;
-  private readonly notificationService: INotificationService;
+  private readonly nhkPlusProgramService: INhkPlusProgramService;
 
   constructor(
-    // nhkProgramService: INhkProgramService,
-    notificationService: INotificationService,
+    nhkPlusProgramService: INhkPlusProgramService,
   ) {
-    // this.nhkProgramService = nhkProgramService;
-    this.notificationService = notificationService;
+    this.nhkPlusProgramService = nhkPlusProgramService;
   }
 
-  async execute(dates: string[]) {
+  async execute(_: string[]) {
     // const programs = await this.nhkProgramService.listByDates(dates);
-    await this.notificationService.execute([]);
+    // await this.notificationService.execute([]);
   }
 }

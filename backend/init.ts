@@ -16,6 +16,4 @@ export const {
   appSettingService,
   watchProgramKeysService,
   nhkPlusProgramService,
-  notificationService,
-  mainFlowService,
 } = createBeans(kv);

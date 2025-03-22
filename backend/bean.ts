@@ -1,11 +1,7 @@
-import { LineClient } from "./client/LineClient.ts";
 import { AppSettingRepository } from "./repository/AppSettingRepository.ts";
 import { WatchProgramKeysRepository } from "./repository/WatchProgramKeysRepository.ts";
 import { AppSettingService } from "./service/AppSettingService.ts";
 import { WatchProgramKeysService } from "./service/WatchProgramKeysService.ts";
-import { MainFlowService } from "./service/MainFlowService.ts";
-import { NotificationService } from "./service/NotificationService.ts";
-import { env } from "../env.ts";
 import { NhkPlusClient } from "./client/NhkPlusClient.ts";
 import { NhkPlusProgramService } from "./service/NhkPlusProgramService.ts";
 
@@ -20,30 +16,25 @@ export function createBeans(kv: Deno.Kv) {
     watchProgramKeysRepository,
   );
 
-  const lineClient = new LineClient({
-    userid: env("LINE_API_USER_ID"),
-    accessToken: env("LINE_API_TOKEN"),
-  });
+  // const lineClient = new LineClient({
+  //   userid: env("LINE_API_USER_ID"),
+  //   accessToken: env("LINE_API_TOKEN"),
+  // });
 
   const nhkPlusClient = new NhkPlusClient();
 
-  const notificationService = new NotificationService(lineClient);
+  // const notificationService = new NotificationService(lineClient);
 
   const nhkPlusProgramService = new NhkPlusProgramService(
     watchProgramKeysRepository,
     nhkPlusClient,
   );
 
-  const mainFlowService = new MainFlowService(
-    // nhkProgramService,
-    notificationService,
-  );
-
   return {
     appSettingService,
     watchProgramKeysService,
     nhkPlusProgramService,
-    notificationService,
-    mainFlowService,
+    // notificationService,
+    // mainFlowService,
   };
 }
