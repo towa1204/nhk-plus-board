@@ -11,13 +11,13 @@ export default function ProgramCard({
   stream_url,
   thumbnail,
 }: WatchProgram) {
-  function generateCosenseLink() {
-    const project = "lsadsfj-private"; // TODO: DBからプロジェクト名を取得
-    const body = `> ${encodeURIComponent(content)}`;
-    return `https://scrapbox.io/${project}/${
-      encodeURIComponent(title)
-    }?body=${body}`;
-  }
+  // function generateCosenseLink() {
+  //   const project = "lsadsfj-private"; // TODO: DBからプロジェクト名を取得
+  //   const body = `> ${encodeURIComponent(content)}`;
+  //   return `https://scrapbox.io/${project}/${
+  //     encodeURIComponent(title)
+  //   }?body=${body}`;
+  // }
 
   return (
     <div className="flex justify-center items-center bg-white py-8">
@@ -64,13 +64,15 @@ export default function ProgramCard({
             >
               公式番組ページ
             </a>
-            <a
+            {
+              /* <a
               href={generateCosenseLink()}
               target="_blank"
               className="bg-green-500 text-white text-center px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200 w-full sm:w-auto max-w-xs"
             >
               Cosenseページ
-            </a>
+            </a> */
+            }
           </div>
 
           {/* 詳細説明 */}
