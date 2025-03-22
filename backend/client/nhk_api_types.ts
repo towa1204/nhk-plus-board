@@ -39,7 +39,7 @@ type Program = {
     logo_l?: Image;
     thumbnail_m?: Image;
     hsk_posterframe?: Image;
-    nol_image?: Image;
+    nol_image: Image;
   };
   info?: string;
   act?: string;

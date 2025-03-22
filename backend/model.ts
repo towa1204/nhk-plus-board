@@ -48,10 +48,15 @@ export type WatchProgram = {
    */
   title: string;
   /**
-   * NHK+での配信期間
-   * 例: 03/06(木) 20:41 ~ 03/20(木) 20:41
+   * NHK+での配信開始日時
+   * 例: 2025-03-13T20:41:00+09:00
    */
-  period: string;
+  published_period_from: string;
+  /**
+   * NHK+での配信終了日時
+   * 例: 2025-03-13T21:00:00+09:00
+   */
+  published_period_to: string;
   /**
    * 番組サブタイトル
    * 例: 滋賀出身・ダイアン津田と堀田真由が大津市をめぐる！...

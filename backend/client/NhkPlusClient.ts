@@ -10,7 +10,7 @@ export class NhkPlusClient implements INhkPlusClient {
 
   public async searchPrograms(keyword: string): Promise<PlaylistResponse> {
     const url =
-      `${NhkPlusClient.NHK_PLUS_BASE_PATH}/search?keyword=${keyword}&area=all&play_vod=true&sort_type=asc`;
+      `${NhkPlusClient.NHK_PLUS_BASE_PATH}/search?keyword=${keyword}&area=all&play_vod=true&range=-2w:now&sort_type=asc`;
 
     const res = await fetch(url);
     if (!res.ok) {

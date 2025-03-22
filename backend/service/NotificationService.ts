@@ -1,5 +1,5 @@
 import { ILineClient } from "../client/LineClient.ts";
-import { WatchProgram } from "../client/nhk_api_types.ts";
+import { WatchProgram } from "../model.ts";
 import { toJSTMMDDhhmmFormat } from "../common/date.ts";
 
 export interface INotificationService {
