@@ -6,8 +6,8 @@ const kv = Deno.env.get("KV_PATH") === undefined
 
 export const {
   appSettingService,
-  programSettingService,
-  // nhkProgramService,
+  watchProgramKeysService,
+  nhkPlusProgramService,
   notificationService,
   mainFlowService,
 } = createBeans(kv);

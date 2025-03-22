@@ -3,7 +3,7 @@ import { INhkPlusClient } from "../client/NhkPlusClient.ts";
 import { Repository } from "../common/types.ts";
 import { WatchProgram, WatchProgramKeys } from "../model.ts";
 export interface INhkPlusProgramService {
-  fetchPrograms: () => Promise<Record<string, WatchProgram[]>[]>;
+  fetchPrograms: () => Promise<Record<string, WatchProgram[]>>;
 }
 
 export class NhkPlusProgramService implements INhkPlusProgramService {
@@ -18,22 +18,22 @@ export class NhkPlusProgramService implements INhkPlusProgramService {
     this.nhkPlusClient = nhkPlusClient;
   }
 
-  public async fetchPrograms(): Promise<Record<string, WatchProgram[]>[]> {
+  public async fetchPrograms(): Promise<Record<string, WatchProgram[]>> {
     const { programs } = await this.repository.get();
 
-    const programList = await Promise.all(
+    const programList: Record<string, WatchProgram[]> = {};
+
+    await Promise.all(
       programs
         .filter((programKey) => programKey.enabled)
         .map(async (programKey) => {
-          return {
-            [programKey.title]: this.toWatchProgram(
-              await this.nhkPlusClient.searchPrograms(
-                programKey.title,
-              ),
-            ),
-          };
+          const result = await this.nhkPlusClient.searchPrograms(
+            programKey.title,
+          );
+          programList[programKey.title] = this.toWatchProgram(result);
         }),
     );
+
     console.log(programList);
 
     return programList;

@@ -1,3 +1,6 @@
+import { Handlers, PageProps } from "$fresh/server.ts";
+import { nhkPlusProgramService } from "../../backend/init.ts";
+import { WatchProgram } from "../../backend/model.ts";
 import { HomeButton } from "../../components/HomeButton.tsx";
 import ProgramCard from "../../components/ProgramCard.tsx";
 
@@ -13,19 +16,31 @@ const stream_url = "https://plus.nhk.jp/watch/st/270_g1_2025030649665";
 const thumbnail =
   "https://www.nhk.jp/static/assets/images/tvepisode/te/Q6R7X3MGPJ/Q6R7X3MGPJ-eyecatch_a7163dc2ec41c4ca72e204efc9a18a15.jpg";
 
-const programTitles = [
-  "ブラタモリ",
-  "えぇトコ",
-  "バックヤード",
-];
+// const programTitles = [
+//   "ブラタモリ",
+//   "えぇトコ",
+//   "バックヤード",
+// ];
 
-export default function ProgramListPage() {
+export const handler: Handlers = {
+  async GET(_, ctx) {
+    const programs = await nhkPlusProgramService.fetchPrograms();
+    return ctx.render(programs);
+  },
+};
+
+export default function ProgramListPage(
+  { data }: PageProps<Record<string, WatchProgram[]>[]>,
+) {
+  // 非同期で取ってくるためプロパティの順番が保証されないのでソート
+  const titles = Object.keys(data).toSorted();
+
   return (
     <div className="bg-white py-8 px-4 max-w-4xl mx-auto">
       {/* 番組一覧 */}
       <h1 className="text-2xl font-bold text-center mb-4">番組一覧</h1>
       <ul className="flex flex-row flex-wrap justify-center gap-4 mb-8">
-        {programTitles.map((title) => (
+        {titles.map((title) => (
           <li key={title}>
             <a
               href={`#${title}`}
