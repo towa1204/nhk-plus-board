@@ -48,6 +48,6 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           # Deno Deployのプロジェクト名を指定
-          project: "nhk-program-notify"
+          project: "nhk-plus-board"
           entrypoint: "main.ts"
           root: "."
