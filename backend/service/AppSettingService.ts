@@ -1,7 +1,6 @@
 import { Repository, ToUnknown } from "../common/types.ts";
 import { AppSetting, AppSettingSchema } from "../model.ts";
 import { createErrorMessage } from "../common/util.ts";
-import { NotFoundConfigError } from "../common/exception.ts";
 
 export type UnknownAppSetting = ToUnknown<AppSetting>;
 
@@ -13,17 +12,8 @@ export class AppSettingService {
   }
 
   async get(): Promise<AppSetting> {
-    try {
-      return await this.repository.get();
-    } catch (e) {
-      if (e instanceof NotFoundConfigError) {
-        return Promise.resolve({
-          notificationTarget: null,
-          cosenseProject: null,
-        });
-      }
-      throw e;
-    }
+    const result = await this.repository.get();
+    return result;
   }
 
   async validateAndSave(value: UnknownAppSetting) {

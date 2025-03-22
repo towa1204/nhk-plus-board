@@ -1,5 +1,5 @@
 import { WatchProgramKeys } from "../model.ts";
-import { NotFoundConfigError, SetConfigError } from "../common/exception.ts";
+import { SetConfigError } from "../common/exception.ts";
 import { KV_KEYS } from "../common/kv_key.ts";
 import { Repository } from "../common/types.ts";
 
@@ -13,9 +13,9 @@ export class WatchProgramKeysRepository
 
   async get(): Promise<WatchProgramKeys> {
     const result = await this.#kv.get<WatchProgramKeys>(KV_KEYS.PROGRAMS);
-    if (result.value == null) {
-      throw new NotFoundConfigError({
-        message: `Not Found value. key: ${JSON.stringify(KV_KEYS.PROGRAMS)}`,
+    if (result.value === null) {
+      return Promise.resolve({
+        programs: [],
       });
     }
     return result.value;
