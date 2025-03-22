@@ -25,11 +25,14 @@ export class NhkPlusProgramService implements INhkPlusProgramService {
 
     await Promise.all(
       programs
+        // 有効な番組のみ取得
         .filter((programKey) => programKey.enabled)
         .map(async (programKey) => {
           const result = await this.nhkPlusClient.searchPrograms(
             programKey.title,
           );
+          // 番組が見つからなかった場合はスキップ
+          if (result.body.length === 0) return;
           programList[programKey.title] = this.toWatchProgram(result);
         }),
     );
