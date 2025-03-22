@@ -1,20 +1,16 @@
+import { formatPeriod } from "../backend/common/date.ts";
+import { WatchProgram } from "../backend/model.ts";
+
 export default function ProgramCard({
   title,
-  period,
+  published_period_from,
+  published_period_to,
   subtitle,
   content,
   series_url,
   stream_url,
   thumbnail,
-}: {
-  title: string;
-  period: string;
-  subtitle: string;
-  content: string;
-  series_url: string;
-  stream_url: string;
-  thumbnail: string;
-}) {
+}: WatchProgram) {
   function generateCosenseLink() {
     const project = "lsadsfj-private"; // TODO: DBからプロジェクト名を取得
     const body = `> ${encodeURIComponent(content)}`;
@@ -44,7 +40,7 @@ export default function ProgramCard({
             {title}
           </h2>
           <p className="text-gray-600 mt-2">
-            📅 {period}
+            📅 {formatPeriod(published_period_from, published_period_to)}
           </p>
 
           {/* 番組の説明 */}

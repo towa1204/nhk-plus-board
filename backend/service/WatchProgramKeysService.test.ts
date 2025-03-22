@@ -10,7 +10,7 @@ async function setup() {
   await setTestDataFromFile(
     kv,
     KV_KEYS.PROGRAMS,
-    "backend/testdata/example_programsetting.json",
+    "backend/testdata/example_watchprogramkeys.json",
   );
   return { kv, repository };
 }
@@ -25,7 +25,7 @@ Deno.test("WatchProgramKeysService", async (t) => {
       "programs": [
         {
           "enabled": true,
-          "title": "100分de名著シリーズ",
+          "title": "100分de名著",
         },
         {
           "enabled": true,
