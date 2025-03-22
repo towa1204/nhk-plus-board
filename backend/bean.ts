@@ -1,40 +1,40 @@
-import { LineClient } from "./client/LineClient.ts";
 import { AppSettingRepository } from "./repository/AppSettingRepository.ts";
-import { ProgramSettingRepository } from "./repository/ProgramSettingRepository.ts";
+import { WatchProgramKeysRepository } from "./repository/WatchProgramKeysRepository.ts";
 import { AppSettingService } from "./service/AppSettingService.ts";
-import { ProgramSettingService } from "./service/ProgramSettingService.ts";
-import { MainFlowService } from "./service/MainFlowService.ts";
-import { NotificationService } from "./service/NotificationService.ts";
-import { env } from "../env.ts";
+import { WatchProgramKeysService } from "./service/WatchProgramKeysService.ts";
+import { NhkPlusClient } from "./client/NhkPlusClient.ts";
+import { NhkPlusProgramService } from "./service/NhkPlusProgramService.ts";
 
 export function createBeans(kv: Deno.Kv) {
   const appSettingRepository = new AppSettingRepository(kv);
-  const programSettingRepository = new ProgramSettingRepository(kv);
+  const watchProgramKeysRepository = new WatchProgramKeysRepository(kv);
 
   const appSettingService = new AppSettingService(
     appSettingRepository,
   );
-  const programSettingService = new ProgramSettingService(
-    programSettingRepository,
+  const watchProgramKeysService = new WatchProgramKeysService(
+    watchProgramKeysRepository,
   );
 
-  const lineClient = new LineClient({
-    userid: env("LINE_API_USER_ID"),
-    accessToken: env("LINE_API_TOKEN"),
-  });
+  // const lineClient = new LineClient({
+  //   userid: env("LINE_API_USER_ID"),
+  //   accessToken: env("LINE_API_TOKEN"),
+  // });
 
-  const notificationService = new NotificationService(lineClient);
+  const nhkPlusClient = new NhkPlusClient();
 
-  const mainFlowService = new MainFlowService(
-    nhkProgramService,
-    notificationService,
+  // const notificationService = new NotificationService(lineClient);
+
+  const nhkPlusProgramService = new NhkPlusProgramService(
+    watchProgramKeysRepository,
+    nhkPlusClient,
   );
 
   return {
     appSettingService,
-    programSettingService,
-    nhkProgramService,
-    notificationService,
-    mainFlowService,
+    watchProgramKeysService,
+    nhkPlusProgramService,
+    // notificationService,
+    // mainFlowService,
   };
 }

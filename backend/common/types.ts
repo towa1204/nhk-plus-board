@@ -1,4 +1,4 @@
-import { Config } from "../schema.ts";
+import { Config } from "../model.ts";
 
 export interface Repository<T> {
   get: () => Promise<T>;

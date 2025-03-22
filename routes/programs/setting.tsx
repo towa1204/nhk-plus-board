@@ -1,10 +1,10 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { programSettingService } from "../../backend/init.ts";
+import { watchProgramKeysService } from "../../backend/init.ts";
 import {
   getErrorMessageOnCookie,
   setErrorMessageOnCookie,
 } from "../../backend/cookie.ts";
-import { ConfigProgram } from "../../backend/schema.ts";
+import { WatchProgramKeys } from "../../backend/model.ts";
 import { HomeButton } from "../../components/HomeButton.tsx";
 import ProgramForm from "../../islands/ProgramForm.tsx";
 import { WithErrorMessage } from "../types.ts";
@@ -13,9 +13,9 @@ export const handler: Handlers = {
   async GET(req, ctx) {
     const { message, resHeaders } = getErrorMessageOnCookie(req.headers);
 
-    const programProps = await programSettingService.get();
+    const programProps = await watchProgramKeysService.get();
 
-    const initData: WithErrorMessage<ConfigProgram> = {
+    const initData: WithErrorMessage<WatchProgramKeys> = {
       ...programProps,
       errorMessage: message,
     };
@@ -35,7 +35,7 @@ export const handler: Handlers = {
       "Location": ctx.url.pathname,
     });
 
-    const result = await programSettingService.validateAndSave({
+    const result = await watchProgramKeysService.validateAndSave({
       programs: receivedPrograms,
     });
     if (!result.success) {
@@ -50,7 +50,7 @@ export const handler: Handlers = {
 };
 
 export default function ProgramPage(
-  { data }: PageProps<WithErrorMessage<ConfigProgram>>,
+  { data }: PageProps<WithErrorMessage<WatchProgramKeys>>,
 ) {
   const { errorMessage } = data;
 

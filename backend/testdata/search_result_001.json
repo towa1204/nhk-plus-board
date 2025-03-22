@@ -1,0 +1,280 @@
+{
+  "playlist_id": "69cf7211-56a8-45d9-bb0f-02f0bc486d4e",
+  "playlist_name": "キーワード検索プレイリスト",
+  "playlist_description": "",
+  "playlist_seeds": "?area=all&keyword=%E3%81%88%E3%81%87%E3%83%88%E3%82%B3&play_vod=true&sort_type=asc",
+  "playlist_category": "search",
+  "playlist_type": "keyword-search",
+  "schema_version": 1,
+  "styles": "",
+  "operations": [],
+  "created_at": "2025-03-06T11:39:57+09:00",
+  "modified_at": "2025-03-13T20:55:52+09:00",
+  "expired_at": "",
+  "images": {
+    "logo_l": {
+      "url": ""
+    },
+    "thumbnail_m": {
+      "url": ""
+    }
+  },
+  "behavior": {
+    "if_empty": "then_simul",
+    "if_expired": "then_simul",
+    "if_finished": "then_stop"
+  },
+  "config_ext": "",
+  "hsk": [
+    {
+      "service_id": "g1",
+      "qf_mode": ""
+    },
+    {
+      "service_id": "g2",
+      "qf_mode": ""
+    },
+    {
+      "service_id": "e1",
+      "qf_mode": ""
+    },
+    {
+      "service_id": "e3",
+      "qf_mode": ""
+    },
+    {
+      "service_id": "s1",
+      "qf_mode": ""
+    },
+    {
+      "service_id": "s2",
+      "qf_mode": ""
+    },
+    {
+      "service_id": "s5",
+      "qf_mode": ""
+    }
+  ],
+  "total_hits": 1,
+  "body": [
+    {
+      "stream_id": "270_g1_2025031353301",
+      "stream_fmt": "hsk2",
+      "stream_name": "えぇトコ“海の京都”へ小旅行～京都　京丹後市～",
+      "stream_type": {
+        "type": "vod",
+        "current_position": -1,
+        "program_id": "2025031353301",
+        "service_id": "g1",
+        "date": "2025-03-13",
+        "start_time": "2025-03-13T20:15:00+09:00",
+        "program": {
+          "id": "2025031353301",
+          "area": {
+            "id": "270",
+            "name": "大阪"
+          },
+          "date": "2025-03-13",
+          "service": {
+            "id": "g1",
+            "name": "NHK総合1",
+            "images": {
+              "logo_s": {
+                "url": "https://www.nhk.or.jp/common/img/media/gtv-100x50.png",
+                "width": "100",
+                "height": "50"
+              },
+              "logo_m": {
+                "url": "https://www.nhk.or.jp/common/img/media/gtv-200x100.png",
+                "width": "200",
+                "height": "100"
+              },
+              "logo_l": {
+                "url": "https://www.nhk.or.jp/common/img/media/gtv-200x200.png",
+                "width": "200",
+                "height": "200"
+              },
+              "badgeSmall": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.svg",
+                "width": "100",
+                "height": "50"
+              },
+              "badge": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge.svg",
+                "width": "200",
+                "height": "100"
+              },
+              "logoSmall": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-icon.svg",
+                "width": "200",
+                "height": "200"
+              },
+              "badge9x4": {
+                "url": "https://www.nhk.jp/assets/images/broadcastservice/bs/g1/g1-badge9x4.svg",
+                "width": "180",
+                "height": "80"
+              }
+            }
+          },
+          "event_id": "53301",
+          "start_time": "2025-03-13T20:15:00+09:00",
+          "end_time": "2025-03-13T20:41:00+09:00",
+          "genre": [
+            "0505",
+            "0205",
+            "0801"
+          ],
+          "title": "えぇトコ“海の京都”へ小旅行～京都　京丹後市～",
+          "subtitle": "美しい海岸線で知られる京丹後市へ。琴引浜の鳴き砂や塩作り体験、“丹後ブルー”に染まる着物など、“海の京都”がもたらす恵みを体感する旅。",
+          "content": "京都・京丹後市は“海の京都”とも呼ばれる地域。カニやカキなどの海の幸をはじめ、日本海の恵みがもたらされてきた。俳優・戸田菜穂とふせえりが“海の京都”を満喫する小旅行へ出発！▼旅のはじまりはローカル線・京都丹後鉄道▼徳川家康も堪能！？久美浜特産「このしろずし」▼京都御所を再現！巨大邸宅の超豪華ひな飾り▼鳴き砂の浜で海水を煮詰める！伝統の塩作りに挑戦▼日本海をイメージ！丹後ちりめんを青く染め上げた着物",
+          "images": {
+            "logo_l": {
+              "url": "https://www.nhk.jp/static/assets/images/tvseries/ts/8X53QX9XM5/8X53QX9XM5-logo_f721ef0c2df2a91b3fc75d338451bff4.jpg",
+              "width": "640",
+              "height": "640"
+            },
+            "thumbnail_m": {
+              "url": "https://www.nhk.jp/static/assets/images/tvseries/ts/8X53QX9XM5/8X53QX9XM5-eyecatch_a021eaf4cda31bbef02bc1dd2f8d9f7e.jpg",
+              "width": "640",
+              "height": "360"
+            },
+            "hsk_posterframe": {
+              "url": ""
+            },
+            "nol_image": {
+              "url": "https://www.nhk.jp/static/assets/images/tvepisode/te/E256P4MY77/E256P4MY77-eyecatch_8715423668591da6872d75bf186ce78d.jpg"
+            }
+          },
+          "info": "",
+          "act": "【旅人】戸田菜穂，ふせえり，【ナレーション】子守康範，橋本のりこ",
+          "music": "",
+          "free": "",
+          "rate": "",
+          "flags": {
+            "sound": "03",
+            "teletext": "1",
+            "databroad": "0",
+            "rebroad": "0",
+            "multivoice": "0",
+            "interactive": "0",
+            "shuwa": "0",
+            "oneseg": "0",
+            "subchannel": "N",
+            "honyo": "0",
+            "saihoflag": "0",
+            "hybridcastid": "0",
+            "kido": "0",
+            "gashitsu": "1",
+            "sozai": "24",
+            "eizo": "3",
+            "marume": "0",
+            "bantype": "01",
+            "dohaishin": "2",
+            "hayamodoshi": "2",
+            "minogashi": "0",
+            "nod": "2"
+          },
+          "change": [],
+          "icis": {
+            "series_id": "",
+            "contents_id": ""
+          },
+          "lastupdate": "2025-03-06T11:34:29+09:00",
+          "site_id": "2853",
+          "url": {
+            "pc": "https://www.nhk.jp/p/osaka-eetoko/ts/8X53QX9XM5/",
+            "short": "https://nhk.jp/P2853",
+            "nod": "",
+            "nod_portal": ""
+          },
+          "keywords": [
+            "えぇトコ",
+            "えぇとこ"
+          ],
+          "hashtags": [],
+          "codes": {
+            "code": "8369213",
+            "split1": [
+              "8369",
+              "213"
+            ]
+          },
+          "ch": {
+            "id": "011",
+            "name": "総合",
+            "station": "大阪"
+          },
+          "hsk": {
+            "system_unique_id": "",
+            "concurrent_delivery": "1",
+            "early_back_delivery": "1",
+            "passed_delivery": "0",
+            "nod_delivery": "2",
+            "passed_start_date_time": "2025-03-13T20:41:00+09:00",
+            "passed_end_date_time": "2025-03-27T20:41:00+09:00",
+            "passed_delivery_period": "1209600",
+            "passed_length": "00:25:59",
+            "early_back_delivery_reusable_flag": "",
+            "passed_type": "1",
+            "genban_edit_flag": "0",
+            "genban_caption_flag": "0",
+            "news_xml_url": "",
+            "posterframe_image_url": "",
+            "qf_flag": "0",
+            "qf_program_name": "",
+            "update_date_time": "2025-03-13T20:55:49+09:00",
+            "passed_delivery_readyable_flag": "1",
+            "program_kind": "",
+            "flow_code": "",
+            "audio_mode1": "03",
+            "audio_mode2": "15",
+            "kido": "",
+            "kidofuyo": "",
+            "shikiiki": "",
+            "marume_id": "",
+            "epg_disp_id": "0",
+            "event_share_gtv": "2",
+            "event_share_gtv_sub": "1",
+            "event_share_etv": "0",
+            "event_share_etv_sub": "0",
+            "event_share_bs": "",
+            "event_share_bs_sub": "",
+            "broadcast_range": "1",
+            "video_descriptor": "https://vod-npd2.cdn.plus.nhk.jp/npd2/7d70-a000/20250313/d035-1-1-a793b6d7c8d394cdbf284881f99cc3ce/videoinfo-fab73fb21ba0a6524c7d4b917f9a3418.json",
+            "rewritable_event_id": "",
+            "variable_speed_flag": "0",
+            "epg_info": {
+              "event_id": "53301",
+              "title": "えぇトコ“海の京都”へ小旅行～京都　京丹後市～",
+              "start_time": "2025-03-13 20:15:00",
+              "end_time": "2025-03-13 20:42:00"
+            },
+            "nol": {
+              "seriesId": "8X53QX9XM5",
+              "seriesName": "えぇトコ",
+              "episodeId": "E256P4MY77",
+              "episodeName": "“海の京都”へ小旅行〜京都 京丹後市〜",
+              "image": "https://www.nhk.jp/static/assets/images/tvepisode/te/E256P4MY77/E256P4MY77-eyecatch_8715423668591da6872d75bf186ce78d.jpg"
+            }
+          },
+          "extra": {
+            "pr_movies": []
+          }
+        }
+      },
+      "play_control": {
+        "simul": false,
+        "dvr": false,
+        "vod": true,
+        "multi": null
+      },
+      "published_period_from": "2025-03-13T20:41:00+09:00",
+      "published_period_to": "2025-03-27T20:41:00+09:00",
+      "play_mode": {
+        "has_controls": false,
+        "is_mute": false,
+        "autoplay_delay": 0
+      }
+    }
+  ]
+}
