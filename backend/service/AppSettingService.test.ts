@@ -22,7 +22,7 @@ Deno.test("AppSettingService", async (t) => {
     const service = new AppSettingService(repository);
     const result = await service.get();
     assertEquals(result, {
-      "notificationTarget": "LINE",
+      "notificationApp": "LINE",
       "cosenseProject": "cosense-project",
     });
 
@@ -34,7 +34,7 @@ Deno.test("AppSettingService", async (t) => {
 
     const service = new AppSettingService(repository);
     const result = await service.validateAndSave({
-      "notificationTarget": "LINE",
+      "notificationApp": "LINE",
       "cosenseProject": "new-project",
     });
     assertEquals(result.success, true);
@@ -48,11 +48,11 @@ Deno.test("AppSettingService", async (t) => {
 
     const service = new AppSettingService(repository);
     const result = await service.validateAndSave({
-      "notificationTarget": "test",
+      "notificationApp": "test",
       "cosenseProject": "cosense-project",
     });
     assertEquals(result.success, false);
-    assertEquals(result.message, ["notificationTarget: Invalid input"]);
+    assertEquals(result.message, ["notificationApp: Invalid input"]);
 
     kv.close();
   });
@@ -62,7 +62,7 @@ Deno.test("AppSettingService", async (t) => {
 
     const service = new AppSettingService(repository);
     const validateResult = await service.validateAndSave({
-      "notificationTarget": "",
+      "notificationApp": "",
       "cosenseProject": "",
     });
     assertEquals(validateResult.success, true);
@@ -70,7 +70,7 @@ Deno.test("AppSettingService", async (t) => {
 
     const result = await repository.get();
     assertEquals(result, {
-      "notificationTarget": null,
+      "notificationApp": null,
       "cosenseProject": null,
     });
 

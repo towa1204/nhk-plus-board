@@ -22,7 +22,7 @@ export const AppSettingSchema = z.object({
    * 通知先
    * nullは通知機能が無効を意味する
    */
-  notificationTarget: z.union([
+  notificationApp: z.union([
     z.literal("LINE"),
     z.literal("Discord"),
     z.null(),
@@ -85,6 +85,6 @@ export type WatchProgram = {
 };
 
 export type WatchProgramResult = {
-  keyword: string;
-  streamablePrograms: WatchProgram[];
+  search_keyword: string;
+  streams: WatchProgram[];
 };

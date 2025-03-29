@@ -1,7 +1,9 @@
-export const watchProgramResult = [
+import { WatchProgramResult } from "../model.ts";
+
+export const watchProgramResult: WatchProgramResult[] = [
   {
-    keyword: "ならナビ",
-    streamablePrograms: [
+    search_keyword: "ならナビ",
+    streams: [
       {
         title:
           "ならナビ　▽なぜ奈良にシカがいる？謎に迫る　▽奈良市小中学校終業式",
@@ -30,8 +32,8 @@ export const watchProgramResult = [
     ],
   },
   {
-    keyword: "100分de名著",
-    streamablePrograms: [
+    search_keyword: "100分de名著",
+    streams: [
       {
         title:
           "１００分ｄｅ名著　選　ヘーゲル“精神現象学”　🈡（４）それでも共に生きていく",

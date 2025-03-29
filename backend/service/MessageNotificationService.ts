@@ -1,7 +1,10 @@
 import { NotificationClient, Repository } from "../common/types.ts";
 import { AppSetting, WatchProgramResult } from "../model.ts";
 
-type NotificationTarget = NonNullable<AppSetting["notificationTarget"]>;
+type NotificationTarget = NonNullable<AppSetting["notificationApp"]>;
+export type IMessageNotificationService = {
+  execute: (programResultList: WatchProgramResult[]) => Promise<void>;
+};
 
 /**
  * 番組情報を通知するサービス
@@ -30,18 +33,18 @@ export class MessageNotificationService {
     this.appSettingRepository = appSettingRepository;
   }
 
-  async execute(programs: WatchProgramResult[]): Promise<void> {
+  async execute(programResultList: WatchProgramResult[]): Promise<void> {
     const appSetting = await this.appSettingRepository.get();
-    if (appSetting.notificationTarget === null) {
+    if (appSetting.notificationApp === null) {
       console.log("通知先が設定されていないため、通知しません");
       return;
     }
 
     const notificationClient = this.notificationClients.get(
-      appSetting.notificationTarget,
+      appSetting.notificationApp,
     );
     if (notificationClient === undefined) return;
 
-    await notificationClient.send(programs);
+    await notificationClient.send(programResultList);
   }
 }

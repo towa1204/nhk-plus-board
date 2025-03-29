@@ -32,7 +32,7 @@ export const handler: Handlers = {
     });
 
     const result = await appSettingService.validateAndSave({
-      notificationTarget: form.get("target"),
+      notificationApp: form.get("target"),
       cosenseProject: form.get("project"),
     });
     if (!result.success) {
@@ -49,7 +49,8 @@ export const handler: Handlers = {
 export default function NotificationPage(
   { data }: PageProps<WithErrorMessage<AppSetting>>,
 ) {
-  const { notificationTarget, cosenseProject, errorMessage } = data;
+  const { notificationApp: notificationTarget, cosenseProject, errorMessage } =
+    data;
   return (
     <>
       <div className="rounded-md border border-gray-200/60 bg-gray-100/30 p-6">

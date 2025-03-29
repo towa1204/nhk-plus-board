@@ -1,4 +1,4 @@
 {
-  "notificationTarget": "LINE",
+  "notificationApp": "LINE",
   "cosenseProject": "cosense-project"
 }

@@ -8,15 +8,15 @@ export const handler: Handlers = {
   async GET(_, ctx) {
     const programs = await nhkPlusProgramService.fetchPrograms();
     // 非同期で取っておりプロパティの順番が保証されないためソートしておく
-    programs.sort((a, b) => a.keyword.localeCompare(b.keyword));
+    programs.sort((a, b) => a.search_keyword.localeCompare(b.search_keyword));
     return ctx.render(programs);
   },
 };
 
 export default function ProgramListPage(
-  { data: watchProgramResult }: PageProps<WatchProgramResult[]>,
+  { data: programResultList }: PageProps<WatchProgramResult[]>,
 ) {
-  const titles = watchProgramResult.map((program) => program.keyword);
+  const titles = programResultList.map((program) => program.search_keyword);
   const hasData = titles.length > 0;
 
   return (
@@ -49,15 +49,18 @@ export default function ProgramListPage(
 
           {/* 番組セクション */}
           <div className="space-y-16">
-            {watchProgramResult.map((program) => {
+            {programResultList.map((program) => {
               return (
-                <section id={program.keyword} key={program.keyword}>
+                <section
+                  id={program.search_keyword}
+                  key={program.search_keyword}
+                >
                   <h2 className="text-2xl font-bold text-center">
-                    {program.keyword}
+                    {program.search_keyword}
                   </h2>
-                  {program.streamablePrograms.map((streamableProgram) => (
+                  {program.streams.map((stream) => (
                     <ProgramCard
-                      {...streamableProgram}
+                      {...stream}
                     />
                   ))}
                 </section>

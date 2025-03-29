@@ -2,10 +2,10 @@ import { assertSpyCalls, spy } from "@std/testing/mock";
 import { MessageNotificationService } from "./MessageNotificationService.ts";
 
 Deno.test("MessageNotificationService", async (t) => {
-  const createService = (notificationTarget: "LINE" | "Discord" | null) => {
+  const createService = (notificationApp: "LINE" | "Discord" | null) => {
     const appSettingRepository = {
       get: async () => (await {
-        notificationTarget,
+        notificationApp,
         cosenseProject: null,
       }),
       save: async () => {},

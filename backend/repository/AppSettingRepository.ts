@@ -14,7 +14,7 @@ export class AppSettingRepository implements Repository<AppSetting> {
     const result = await this.#kv.get<AppSetting>(KV_KEYS.APPSETTING);
     if (result.value === null) {
       return Promise.resolve({
-        notificationTarget: null,
+        notificationApp: null,
         cosenseProject: null,
       });
     }

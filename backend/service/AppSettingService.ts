@@ -18,7 +18,7 @@ export class AppSettingService {
 
   async validateAndSave(value: UnknownAppSetting) {
     /* フォームで空文字で送られてきたときは未設定扱い */
-    if (value.notificationTarget === "") value.notificationTarget = null;
+    if (value.notificationApp === "") value.notificationApp = null;
     if (value.cosenseProject === "") value.cosenseProject = null;
 
     const result = AppSettingSchema.safeParse(value);

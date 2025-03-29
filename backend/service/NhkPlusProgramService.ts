@@ -60,8 +60,8 @@ export class NhkPlusProgramService implements INhkPlusProgramService {
     }));
 
     return {
-      keyword,
-      streamablePrograms: programs,
+      search_keyword: keyword,
+      streams: programs,
     };
   }
 }

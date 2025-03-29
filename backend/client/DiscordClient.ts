@@ -11,10 +11,10 @@ export class DiscordClient implements NotificationClient {
     this.webhookUrl = webhookUrl;
   }
 
-  public async send(programs: WatchProgramResult[]): Promise<void> {
-    if (programs.length === 0) return;
+  public async send(programResultList: WatchProgramResult[]): Promise<void> {
+    if (programResultList.length === 0) return;
 
-    const message = this.buildMessage(programs);
+    const message = this.buildMessage(programResultList);
     console.log("Discord Webhook APIへ送信するメッセージ: \n", message);
 
     const payload = {
@@ -40,19 +40,19 @@ export class DiscordClient implements NotificationClient {
     await res.body?.cancel();
   }
 
-  private buildMessage(programs: WatchProgramResult[]): string {
-    const messages = programs.map((program) => {
-      const streamablePrograms = program.streamablePrograms.map(
-        (streamableProgram) => {
+  private buildMessage(programResultList: WatchProgramResult[]): string {
+    const messages = programResultList.map((program) => {
+      const streamsMessage = program.streams.map(
+        (stream) => {
           return `${
             formatPeriod(
-              streamableProgram.published_period_from,
-              streamableProgram.published_period_to,
+              stream.published_period_from,
+              stream.published_period_to,
             )
-          }\n${streamableProgram.title}`;
+          }\n${stream.title}`;
         },
       );
-      return `${streamablePrograms.join("\n\n")}`;
+      return `${streamsMessage.join("\n\n")}`;
     });
     return messageHeader + messages.join("\n\n");
   }
