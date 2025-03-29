@@ -4,7 +4,8 @@ import { NotificationClient } from "../common/types.ts";
 import { messageHeader } from "../common/util.ts";
 import { WatchProgramResult } from "../model.ts";
 export class LineClient implements NotificationClient {
-  private static readonly MESSAGING_API_BASE_PATH = "https://api.line.me/v2";
+  private static readonly MESSAGING_API_PATH =
+    "https://api.line.me/v2/bot/message/push";
 
   private readonly userid: string;
   private readonly accessToken: string;
@@ -28,9 +29,8 @@ export class LineClient implements NotificationClient {
       }],
     };
 
-    const url = `${LineClient.MESSAGING_API_BASE_PATH}/bot/message/push`;
     const res = await fetch(
-      url,
+      LineClient.MESSAGING_API_PATH,
       {
         method: "POST",
         headers: {
@@ -42,7 +42,7 @@ export class LineClient implements NotificationClient {
     );
     if (!res.ok) {
       throw new ApiClientError({
-        url,
+        url: LineClient.MESSAGING_API_PATH,
         status: res.status,
         responseBody: await res.text(),
         message: `LINE Messaging Push APIへの接続に失敗しました`,
