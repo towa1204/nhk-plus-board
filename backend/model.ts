@@ -83,3 +83,8 @@ export type WatchProgram = {
    */
   thumbnail: string;
 };
+
+export type WatchProgramResult = {
+  keyword: string;
+  streamablePrograms: WatchProgram[];
+};
