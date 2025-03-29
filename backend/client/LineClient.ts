@@ -15,9 +15,8 @@ export class LineClient implements NotificationClient {
   }
 
   public async send(programs: WatchProgramResult[]): Promise<void> {
-    if (programs.length === 0) {
-      return;
-    }
+    if (programs.length === 0) return;
+
     const message = this.buildMessage(programs);
     console.log("LINE APIへ送信するメッセージ: \n", message);
 
