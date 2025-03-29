@@ -14,9 +14,9 @@ export const handler: Handlers = {
 };
 
 export default function ProgramListPage(
-  { data: programResultList }: PageProps<WatchProgramResult[]>,
+  { data: programs }: PageProps<WatchProgramResult[]>,
 ) {
-  const titles = programResultList.map((program) => program.search_keyword);
+  const titles = programs.map((program) => program.search_keyword);
   const hasData = titles.length > 0;
 
   return (
@@ -49,7 +49,7 @@ export default function ProgramListPage(
 
           {/* 番組セクション */}
           <div className="space-y-16">
-            {programResultList.map((program) => {
+            {programs.map((program) => {
               return (
                 <section
                   id={program.search_keyword}

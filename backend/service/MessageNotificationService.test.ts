@@ -1,5 +1,6 @@
 import { assertSpyCalls, spy } from "@std/testing/mock";
 import { MessageNotificationService } from "./MessageNotificationService.ts";
+import { sampleWatchPrograms } from "../testdata/example.ts";
 
 Deno.test("MessageNotificationService", async (t) => {
   const createService = (notificationApp: "LINE" | "Discord" | null) => {
@@ -11,10 +12,16 @@ Deno.test("MessageNotificationService", async (t) => {
       save: async () => {},
     };
     const lineClient = {
-      send: spy(async () => {}),
+      send: spy(async (message: string) => {
+        console.log(message);
+        await Promise.resolve();
+      }),
     };
     const discordClient = {
-      send: spy(async () => {}),
+      send: spy(async (message: string) => {
+        console.log(message);
+        await Promise.resolve();
+      }),
     };
 
     const service = new MessageNotificationService(
@@ -47,7 +54,10 @@ Deno.test("MessageNotificationService", async (t) => {
   for (const { name, target, expected } of cases) {
     await t.step(name, async () => {
       const { service, lineClient, discordClient } = createService(target);
-      await service.execute([]);
+      await service.execute({
+        started: sampleWatchPrograms,
+        willEnd: [],
+      });
 
       assertSpyCalls(lineClient.send, expected.lineCalls);
       assertSpyCalls(discordClient.send, expected.discordCalls);

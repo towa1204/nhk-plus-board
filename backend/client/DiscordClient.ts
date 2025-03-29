@@ -1,8 +1,5 @@
-import { formatPeriod } from "../common/date.ts";
 import { ApiClientError } from "../common/exception.ts";
 import { NotificationClient } from "../common/types.ts";
-import { messageHeader } from "../common/util.ts";
-import { WatchProgramResult } from "../model.ts";
 
 export class DiscordClient implements NotificationClient {
   private readonly webhookUrl: string;
@@ -11,10 +8,7 @@ export class DiscordClient implements NotificationClient {
     this.webhookUrl = webhookUrl;
   }
 
-  public async send(programResultList: WatchProgramResult[]): Promise<void> {
-    if (programResultList.length === 0) return;
-
-    const message = this.buildMessage(programResultList);
+  public async send(message: string): Promise<void> {
     console.log("Discord Webhook APIへ送信するメッセージ: \n", message);
 
     const payload = {
@@ -38,22 +32,5 @@ export class DiscordClient implements NotificationClient {
       });
     }
     await res.body?.cancel();
-  }
-
-  private buildMessage(programResultList: WatchProgramResult[]): string {
-    const messages = programResultList.map((program) => {
-      const streamsMessage = program.streams.map(
-        (stream) => {
-          return `${
-            formatPeriod(
-              stream.published_period_from,
-              stream.published_period_to,
-            )
-          }\n${stream.title}`;
-        },
-      );
-      return `${streamsMessage.join("\n\n")}`;
-    });
-    return messageHeader + messages.join("\n\n");
   }
 }

@@ -21,7 +21,7 @@ export class NhkPlusProgramService implements INhkPlusProgramService {
   public async fetchPrograms(): Promise<WatchProgramResult[]> {
     const { programs: programKeys } = await this.repository.get();
 
-    const programResultList: WatchProgramResult[] = [];
+    const programs: WatchProgramResult[] = [];
 
     await Promise.all(
       programKeys
@@ -33,15 +33,15 @@ export class NhkPlusProgramService implements INhkPlusProgramService {
           );
           // 番組が見つからなかった場合はスキップ
           if (result.body.length === 0) return;
-          programResultList.push(
+          programs.push(
             this.toWatchProgramResult(programKey.title, result),
           );
         }),
     );
 
-    console.log(programResultList);
+    console.log(programs);
 
-    return programResultList;
+    return programs;
   }
 
   private toWatchProgramResult(

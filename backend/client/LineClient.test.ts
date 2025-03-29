@@ -3,7 +3,6 @@ import { LineClient } from "./LineClient.ts";
 import { returnsNext, stub } from "@std/testing/mock";
 import { assertRejects } from "@std/assert";
 import { ApiClientError } from "../common/exception.ts";
-import { watchProgramResult } from "../testdata/example.ts";
 
 Deno.test("LineClient", async (t) => {
   await t.step({
@@ -14,7 +13,7 @@ Deno.test("LineClient", async (t) => {
         userid: env("LINE_API_USER_ID"),
         accessToken: env("LINE_API_TOKEN"),
       });
-      await lineClient.send(watchProgramResult);
+      await lineClient.send("わいわい");
     },
   });
 
@@ -31,7 +30,7 @@ Deno.test("LineClient", async (t) => {
       userid: "dummy-user-id",
       accessToken: "dummy-token",
     });
-    await lineClient.send(watchProgramResult);
+    await lineClient.send("わいわい");
   });
 
   await t.step("400エラーのとき例外を送出する", async () => {
@@ -48,7 +47,7 @@ Deno.test("LineClient", async (t) => {
       accessToken: "dummy-token",
     });
     const apiClientError = await assertRejects(async () => {
-      await lineClient.send(watchProgramResult);
+      await lineClient.send("わいわい");
     }, ApiClientError);
 
     console.log(apiClientError.message);

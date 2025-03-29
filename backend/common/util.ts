@@ -10,4 +10,4 @@ export function createErrorMessage(issues: ZodIssue[]) {
 
 export const messageHeader =
   "直近に公開開始した番組もしくは公開終了する番組です。\n" +
-  "https://nhk-plus-board.deno.dev/programs/list\n---\n";
+  "https://nhk-plus-board.deno.dev/programs/list";

@@ -1,8 +1,5 @@
-import { formatPeriod } from "../common/date.ts";
 import { ApiClientError } from "../common/exception.ts";
 import { NotificationClient } from "../common/types.ts";
-import { messageHeader } from "../common/util.ts";
-import { WatchProgramResult } from "../model.ts";
 export class LineClient implements NotificationClient {
   private static readonly MESSAGING_API_PATH =
     "https://api.line.me/v2/bot/message/push";
@@ -15,10 +12,7 @@ export class LineClient implements NotificationClient {
     this.accessToken = lineApiConfig.accessToken;
   }
 
-  public async send(programs: WatchProgramResult[]): Promise<void> {
-    if (programs.length === 0) return;
-
-    const message = this.buildMessage(programs);
+  public async send(message: string): Promise<void> {
     console.log("LINE APIへ送信するメッセージ: \n", message);
 
     const payload = {
@@ -49,22 +43,5 @@ export class LineClient implements NotificationClient {
       });
     }
     await res.body?.cancel();
-  }
-
-  private buildMessage(programResultList: WatchProgramResult[]): string {
-    const messages = programResultList.map((program) => {
-      const streamsMessage = program.streams.map(
-        (stream) => {
-          return `${
-            formatPeriod(
-              stream.published_period_from,
-              stream.published_period_to,
-            )
-          }\n${stream.title}`;
-        },
-      );
-      return `${streamsMessage.join("\n\n")}`;
-    });
-    return messageHeader + messages.join("\n\n");
   }
 }

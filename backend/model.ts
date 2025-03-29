@@ -88,3 +88,16 @@ export type WatchProgramResult = {
   search_keyword: string;
   streams: WatchProgram[];
 };
+
+export type RecentPrograms = {
+  /**
+   * 直近に公開開始した番組
+   * このサービスが実行された時刻の過去24時間以内に公開開始した番組
+   */
+  started: WatchProgram[];
+  /**
+   * 直近に公開終了する番組
+   * このサービスが実行された時刻の未来24時間以内に公開終了する番組
+   */
+  willEnd: WatchProgram[];
+};

@@ -1,4 +1,4 @@
-import { Config, WatchProgramResult } from "../model.ts";
+import { Config } from "../model.ts";
 
 export interface Repository<T> {
   get: () => Promise<T>;
@@ -6,7 +6,7 @@ export interface Repository<T> {
 }
 
 export interface NotificationClient {
-  send: (watchProgramResult: WatchProgramResult[]) => Promise<void>;
+  send: (message: string) => Promise<void>;
 }
 
 export interface IConfigRepository {
