@@ -1,16 +1,6 @@
-# Fresh project
+# NHK Plus Board
 
-Your new Fresh project is ready to go. You can follow the Fresh "Getting
-Started" guide here: https://fresh.deno.dev/docs/getting-started
+NHK+のお気に入り番組を設定することで次のようなことができます
 
-### Usage
-
-Make sure to install Deno: https://deno.land/manual/getting_started/installation
-
-Then start the project:
-
-```
-deno task start
-```
-
-This will watch the project directory and restart as necessary.
+- 配信中の番組をWeb画面で一覧表示
+- 直近に配信された番組や、まもなく配信終了する番組をLINEやDiscordに通知
