@@ -10,8 +10,8 @@ import "$std/dotenv/load.ts";
 import { start } from "$fresh/server.ts";
 import manifest from "./fresh.gen.ts";
 import config from "./fresh.config.ts";
-import { cron } from "./cron.ts";
 import { env } from "./env.ts";
+import { cron } from "./backend/cron.ts";
 
 if (env("CRON_ENABLED") === "true") cron();
 await start(manifest, config);

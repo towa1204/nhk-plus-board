@@ -1,21 +1,22 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { nhkPlusProgramService } from "../../backend/init.ts";
-import { WatchProgram } from "../../backend/model.ts";
+import { WatchProgramResult } from "../../backend/model.ts";
 import { HomeButton } from "../../components/HomeButton.tsx";
 import ProgramCard from "../../components/ProgramCard.tsx";
 
 export const handler: Handlers = {
   async GET(_, ctx) {
     const programs = await nhkPlusProgramService.fetchPrograms();
+    // 非同期で取っておりプロパティの順番が保証されないためソートしておく
+    programs.sort((a, b) => a.search_keyword.localeCompare(b.search_keyword));
     return ctx.render(programs);
   },
 };
 
 export default function ProgramListPage(
-  { data }: PageProps<Record<string, WatchProgram[]>>,
+  { data: programs }: PageProps<WatchProgramResult[]>,
 ) {
-  // 非同期で取ってくるためプロパティの順番が保証されないのでソート
-  const titles = Object.keys(data).toSorted();
+  const titles = programs.map((program) => program.search_keyword);
   const hasData = titles.length > 0;
 
   return (
@@ -48,14 +49,18 @@ export default function ProgramListPage(
 
           {/* 番組セクション */}
           <div className="space-y-16">
-            {titles.map((title) => {
-              const programs = data[title];
+            {programs.map((program) => {
               return (
-                <section id={title}>
-                  <h2 className="text-2xl font-bold text-center">{title}</h2>
-                  {programs.map((program) => (
+                <section
+                  id={program.search_keyword}
+                  key={program.search_keyword}
+                >
+                  <h2 className="text-2xl font-bold text-center">
+                    {program.search_keyword}
+                  </h2>
+                  {program.streams.map((stream) => (
                     <ProgramCard
-                      {...program}
+                      {...stream}
                     />
                   ))}
                 </section>

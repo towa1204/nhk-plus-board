@@ -5,6 +5,10 @@ export interface Repository<T> {
   save: (value: T) => void;
 }
 
+export interface NotificationClient {
+  send: (message: string) => Promise<void>;
+}
+
 export interface IConfigRepository {
   get: () => Promise<Config | null>;
 }

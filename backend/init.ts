@@ -8,4 +8,5 @@ export const {
   appSettingService,
   watchProgramKeysService,
   nhkPlusProgramService,
+  recentProgramNotificationService,
 } = createBeans(kv);

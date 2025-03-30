@@ -15,65 +15,69 @@ async function setup() {
   return { kv, repository };
 }
 
-Deno.test("AppSettingService", async (t) => {
-  await t.step("データを取得できる", async () => {
-    const { kv, repository } = await setup();
+Deno.test("データを取得できる", async () => {
+  const { kv, repository } = await setup();
 
-    const service = new AppSettingService(repository);
-    const result = await service.get();
-    assertEquals(result, {
-      "notificationTarget": "LINE",
-      "cosenseProject": "cosense-project",
-    });
-
-    kv.close();
+  const service = new AppSettingService(repository);
+  const result = await service.get();
+  assertEquals(result, {
+    "notificationApp": "LINE",
+    "cosenseProject": "cosense-project",
   });
 
-  await t.step("プロジェクト名を変更できる", async () => {
-    const { kv, repository } = await setup();
+  kv.close();
+});
 
-    const service = new AppSettingService(repository);
-    const result = await service.validateAndSave({
-      "notificationTarget": "LINE",
-      "cosenseProject": "new-project",
-    });
-    assertEquals(result.success, true);
-    assertEquals(result.message, null);
+Deno.test("プロジェクト名を変更できる", async () => {
+  const { kv, repository } = await setup();
 
-    kv.close();
+  const service = new AppSettingService(repository);
+  const setResult = await service.validateAndSave({
+    "notificationApp": "LINE",
+    "cosenseProject": "new-project",
+  });
+  assertEquals(setResult.success, true);
+  assertEquals(setResult.message, null);
+
+  const getResult = await repository.get();
+  assertEquals(getResult, {
+    "notificationApp": "LINE",
+    "cosenseProject": "new-project",
   });
 
-  await t.step("存在しない通知先でバリデーションエラー", async () => {
-    const { kv, repository } = await setup();
+  kv.close();
+});
 
-    const service = new AppSettingService(repository);
-    const result = await service.validateAndSave({
-      "notificationTarget": "test",
-      "cosenseProject": "cosense-project",
-    });
-    assertEquals(result.success, false);
-    assertEquals(result.message, ["notificationTarget: Invalid input"]);
+Deno.test("不正な通知先を設定するとバリデーションエラー", async () => {
+  const { kv, repository } = await setup();
 
-    kv.close();
+  const service = new AppSettingService(repository);
+  const result = await service.validateAndSave({
+    "notificationApp": "test",
+    "cosenseProject": "cosense-project",
+  });
+  assertEquals(result.success, false);
+  assertEquals(result.message, ["notificationApp: Invalid input"]);
+
+  kv.close();
+});
+
+Deno.test("空文字を設定すると未設定(null)扱い", async () => {
+  const { kv, repository } = await setup();
+
+  const service = new AppSettingService(repository);
+  const validateResult = await service.validateAndSave({
+    "notificationApp": "",
+    "cosenseProject": "",
+  });
+  assertEquals(validateResult.success, true);
+  assertEquals(validateResult.message, null);
+
+  const result = await repository.get();
+  assertEquals(result, {
+    "notificationApp": null,
+    "cosenseProject": null,
   });
 
-  await t.step("空文字が指定されたとき未設定(null)扱い", async () => {
-    const { kv, repository } = await setup();
-
-    const service = new AppSettingService(repository);
-    const validateResult = await service.validateAndSave({
-      "notificationTarget": "",
-      "cosenseProject": "",
-    });
-    assertEquals(validateResult.success, true);
-    assertEquals(validateResult.message, null);
-
-    const result = await repository.get();
-    assertEquals(result, {
-      "notificationTarget": null,
-      "cosenseProject": null,
-    });
-
-    kv.close();
-  });
+  kv.close();
 });

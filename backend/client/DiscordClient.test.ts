@@ -1,15 +1,14 @@
-import { env } from "../../env.ts";
-import { LineClient } from "./LineClient.ts";
 import { returnsNext, stub } from "@std/testing/mock";
-import { assertRejects } from "@std/assert";
+import { DiscordClient } from "./DiscordClient.ts";
+import { assertRejects } from "$std/assert/assert_rejects.ts";
 import { ApiClientError } from "../common/exception.ts";
+import { env } from "../../env.ts";
 
 Deno.test.ignore("動作確認用のテスト", async () => {
-  const lineClient = new LineClient({
-    userid: env("LINE_API_USER_ID"),
-    accessToken: env("LINE_API_TOKEN"),
-  });
-  await lineClient.send("わいわい");
+  const discordClient = new DiscordClient(
+    env("DISCORD_WEBHOOK_URL"),
+  );
+  await discordClient.send("わいわい");
 });
 
 Deno.test("送信できる", async () => {
@@ -21,11 +20,8 @@ Deno.test("送信できる", async () => {
     ]),
   );
 
-  const lineClient = new LineClient({
-    userid: "dummy-user-id",
-    accessToken: "dummy-token",
-  });
-  await lineClient.send("わいわい");
+  const discordClient = new DiscordClient("dummy-webhook-url");
+  await discordClient.send("わいわい");
 });
 
 Deno.test("400エラーのとき例外を送出する", async () => {
@@ -37,12 +33,9 @@ Deno.test("400エラーのとき例外を送出する", async () => {
     ]),
   );
 
-  const lineClient = new LineClient({
-    userid: "dummy-user-id",
-    accessToken: "dummy-token",
-  });
+  const discordClient = new DiscordClient("dummy-webhook-url");
   const apiClientError = await assertRejects(async () => {
-    await lineClient.send("わいわい");
+    await discordClient.send("わいわい");
   }, ApiClientError);
 
   console.log(apiClientError.message);

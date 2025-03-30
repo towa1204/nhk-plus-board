@@ -22,7 +22,7 @@ export const AppSettingSchema = z.object({
    * 通知先
    * nullは通知機能が無効を意味する
    */
-  notificationTarget: z.union([
+  notificationApp: z.union([
     z.literal("LINE"),
     z.literal("Discord"),
     z.null(),
@@ -82,4 +82,22 @@ export type WatchProgram = {
    * 例: https://www.nhk.jp/static/assets/images/tvepisode/te/Q6R7X3MGPJ/Q6R7X3MGPJ-eyecatch_a7163dc2ec41c4ca72e204efc9a18a15.jpg
    */
   thumbnail: string;
+};
+
+export type WatchProgramResult = {
+  search_keyword: string;
+  streams: WatchProgram[];
+};
+
+export type RecentPrograms = {
+  /**
+   * 直近に公開開始した番組
+   * このサービスが実行された時刻の過去24時間以内に公開開始した番組
+   */
+  started: WatchProgram[];
+  /**
+   * 直近に公開終了する番組
+   * このサービスが実行された時刻の未来24時間以内に公開終了する番組
+   */
+  willEnd: WatchProgram[];
 };

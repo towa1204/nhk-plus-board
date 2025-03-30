@@ -1,9 +1,9 @@
 import { PlaylistResponse } from "../client/nhk_api_types.ts";
 import { INhkPlusClient } from "../client/NhkPlusClient.ts";
 import { Repository } from "../common/types.ts";
-import { WatchProgram, WatchProgramKeys } from "../model.ts";
+import { WatchProgramKeys, WatchProgramResult } from "../model.ts";
 export interface INhkPlusProgramService {
-  fetchPrograms: () => Promise<Record<string, WatchProgram[]>>;
+  fetchPrograms: () => Promise<WatchProgramResult[]>;
 }
 
 export class NhkPlusProgramService implements INhkPlusProgramService {
@@ -18,13 +18,13 @@ export class NhkPlusProgramService implements INhkPlusProgramService {
     this.nhkPlusClient = nhkPlusClient;
   }
 
-  public async fetchPrograms(): Promise<Record<string, WatchProgram[]>> {
-    const { programs } = await this.repository.get();
+  public async fetchPrograms(): Promise<WatchProgramResult[]> {
+    const { programs: programKeys } = await this.repository.get();
 
-    const programList: Record<string, WatchProgram[]> = {};
+    const programs: WatchProgramResult[] = [];
 
     await Promise.all(
-      programs
+      programKeys
         // 有効な番組のみ取得
         .filter((programKey) => programKey.enabled)
         .map(async (programKey) => {
@@ -33,17 +33,22 @@ export class NhkPlusProgramService implements INhkPlusProgramService {
           );
           // 番組が見つからなかった場合はスキップ
           if (result.body.length === 0) return;
-          programList[programKey.title] = this.toWatchProgram(result);
+          programs.push(
+            this.toWatchProgramResult(programKey.title, result),
+          );
         }),
     );
 
-    console.log(programList);
+    console.log(programs);
 
-    return programList;
+    return programs;
   }
 
-  private toWatchProgram(playlistReponse: PlaylistResponse): WatchProgram[] {
-    return playlistReponse.body.map((program) => ({
+  private toWatchProgramResult(
+    keyword: string,
+    playlistReponse: PlaylistResponse,
+  ): WatchProgramResult {
+    const programs = playlistReponse.body.map((program) => ({
       title: program.stream_type.program.title,
       published_period_from: program.published_period_from,
       published_period_to: program.published_period_to,
@@ -53,5 +58,10 @@ export class NhkPlusProgramService implements INhkPlusProgramService {
       stream_url: `https://plus.nhk.jp/watch/st/${program.stream_id}`,
       thumbnail: program.stream_type.program.images.nol_image.url,
     }));
+
+    return {
+      search_keyword: keyword,
+      streams: programs,
+    };
   }
 }
