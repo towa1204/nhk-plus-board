@@ -8,4 +8,3 @@ NHK+のお気に入り番組を設定することで次のようなことがで�
 
 <img src="https://github.com/user-attachments/assets/85cc222f-5cb8-4e08-8fa1-43d323aca0e7" width="400" />
 <img src="https://github.com/user-attachments/assets/cdfb01e9-a499-4839-8f43-6376ffdaf8fa" width="400" />
-
