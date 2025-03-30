@@ -23,7 +23,7 @@ function createProgramResult(streams: WatchProgram[]) {
   };
 }
 
-Deno.test("RecentProgramNotifcationService notifies only recent start and will-end programs", async () => {
+Deno.test("通知すべき番組の抽出ロジック", async () => {
   const now = new Date("2025-03-29T12:00:00Z");
   const ONE_HOUR = 60 * 60 * 1000;
 
