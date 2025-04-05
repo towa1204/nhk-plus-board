@@ -1,7 +1,6 @@
 import { NotificationClient, Repository } from "../common/types.ts";
 import { AppSetting, RecentPrograms, WatchProgram } from "../model.ts";
 import { formatPeriod } from "../common/date.ts";
-import { messageHeader } from "../common/util.ts";
 
 type NotificationTarget = NonNullable<AppSetting["notificationApp"]>;
 export type IMessageNotificationService = {
@@ -19,6 +18,10 @@ export class MessageNotificationService implements IMessageNotificationService {
     NotificationClient
   >;
   private readonly appSettingRepository: Repository<AppSetting>;
+
+  private readonly MESSAGE_HEADER =
+    "直近に公開開始した番組もしくは公開終了する番組です。\n" +
+    "https://nhk-plus-board.deno.dev/programs/list";
 
   constructor(
     lineClient: NotificationClient,
@@ -57,7 +60,7 @@ export class MessageNotificationService implements IMessageNotificationService {
 
   private buildMessage(programs: RecentPrograms): string {
     return [
-      messageHeader,
+      this.MESSAGE_HEADER,
       this.formatPrograms("📺 配信が始まった番組:", programs.started),
       this.formatPrograms("⌛ まもなく終了する番組:", programs.willEnd),
     ].filter(Boolean).join("\n\n");
