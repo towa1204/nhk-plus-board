@@ -8,6 +8,11 @@ export class DiscordClient implements NotificationClient {
     this.webhookUrl = webhookUrl;
   }
 
+  /**
+   * WebhookでDiscordチャンネルにメッセージを送信する
+   * @param message メッセージ
+   * @throws ApiClientError
+   */
   public async send(message: string): Promise<void> {
     console.log("Discord Webhook APIへ送信するメッセージ: \n", message);
 

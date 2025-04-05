@@ -12,6 +12,11 @@ export class LineClient implements NotificationClient {
     this.accessToken = lineApiConfig.accessToken;
   }
 
+  /**
+   * LINE Messaging APIでメッセージを送信する
+   * @param message メッセージ
+   * @throws ApiClientError
+   */
   public async send(message: string): Promise<void> {
     console.log("LINE APIへ送信するメッセージ: \n", message);
 
