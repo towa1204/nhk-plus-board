@@ -9,12 +9,16 @@ export function formatPeriod(from: string, to: string): string {
 
   const format = (dateStr: string) => {
     const date = new Date(dateStr);
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const weekday = weekdays[date.getDay()];
-    const time = date.toTimeString().slice(0, 5); // "HH:MM"
+    const jstDate = new Date(
+      date.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }),
+    );
+    const month = String(jstDate.getMonth() + 1).padStart(2, "0");
+    const day = String(jstDate.getDate()).padStart(2, "0");
+    const weekday = weekdays[jstDate.getDay()];
+    const hours = String(jstDate.getHours()).padStart(2, "0");
+    const minutes = String(jstDate.getMinutes()).padStart(2, "0");
 
-    return `${month}/${day}(${weekday}) ${time}`;
+    return `${month}/${day}(${weekday}) ${hours}:${minutes}`;
   };
 
   return `${format(from)} ~ ${format(to)}`;
