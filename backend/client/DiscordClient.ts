@@ -36,6 +36,5 @@ export class DiscordClient implements NotificationClient {
         message: `Discord Webhook APIへの接続に失敗しました`,
       });
     }
-    await res.body?.cancel();
   }
 }
