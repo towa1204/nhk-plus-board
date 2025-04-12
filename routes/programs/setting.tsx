@@ -73,7 +73,7 @@ export default function ProgramPage(
 
         <ProgramForm initData={data} />
       </div>
-      <div class="mt-2">
+      <div className="mt-2">
         <HomeButton />
       </div>
     </>

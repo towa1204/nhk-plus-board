@@ -6,20 +6,20 @@ export default function Error500() {
       <Head>
         <title>500 - Internal Server Error</title>
       </Head>
-      <div class="px-4 py-8 mx-auto bg-[#86efac]">
-        <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
+      <div className="px-4 py-8 mx-auto bg-[#86efac]">
+        <div className="max-w-screen-md mx-auto flex flex-col items-center justify-center">
           <img
-            class="my-6"
+            className="my-6"
             src="/logo.svg"
             width="128"
             height="128"
             alt="the Fresh logo: a sliced lemon dripping with juice"
           />
-          <h1 class="text-4xl font-bold">500 - Internal Server Error</h1>
-          <p class="my-4">
+          <h1 className="text-4xl font-bold">500 - Internal Server Error</h1>
+          <p className="my-4">
             An error occurred during route handling or page rendering.
           </p>
-          <a href="/" class="underline">Go back home</a>
+          <a href="/" className="underline">Go back home</a>
         </div>
       </div>
     </>
