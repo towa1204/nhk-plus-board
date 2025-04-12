@@ -8,6 +8,7 @@ import { WatchProgramKeys } from "../../backend/model.ts";
 import { HomeButton } from "../../components/HomeButton.tsx";
 import ProgramForm from "../../islands/ProgramForm.tsx";
 import { WithErrorMessage } from "../types.ts";
+import { ErrorMessage } from "../../components/ErrorMessage.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -68,18 +69,11 @@ export default function ProgramPage(
           </hgroup>
         </header>
 
-        {errorMessage && (
-          <div
-            class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-            role="alert"
-          >
-            {errorMessage}
-          </div>
-        )}
+        {errorMessage && <ErrorMessage message={errorMessage} />}
 
         <ProgramForm initData={data} />
       </div>
-      <div class="mt-2">
+      <div className="mt-2">
         <HomeButton />
       </div>
     </>

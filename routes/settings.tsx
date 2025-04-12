@@ -10,6 +10,7 @@ import { AppSetting } from "../backend/model.ts";
 import { appSettingService } from "../backend/init.ts";
 import { WithErrorMessage } from "./types.ts";
 import { HomeButton } from "../components/HomeButton.tsx";
+import { ErrorMessage } from "../components/ErrorMessage.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -54,14 +55,7 @@ export default function NotificationPage(
   return (
     <>
       <div className="rounded-md border border-gray-200/60 bg-gray-100/30 p-6">
-        {errorMessage && (
-          <div
-            class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-            role="alert"
-          >
-            {errorMessage}
-          </div>
-        )}
+        {errorMessage && <ErrorMessage message={errorMessage} />}
 
         <form method="post">
           <header className="mb-4 flex justify-between gap-3">
