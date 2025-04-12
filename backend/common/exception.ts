@@ -16,13 +16,6 @@ class BaseError extends Error {
   }
 }
 
-export class NotFoundConfigError extends BaseError {
-  constructor(options: BaseErrorOptions) {
-    super(options);
-    this.name = this.constructor.name;
-  }
-}
-
 export class SetConfigError extends BaseError {
   constructor(options: BaseErrorOptions) {
     super(options);

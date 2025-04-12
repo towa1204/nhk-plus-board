@@ -1,88 +1,4 @@
 /**
- * 日付をJSTのYYYY-MM-DDに変換する
- * @param date Dateオブジェクト
- * @returns YYYY-MM-DD
- */
-export function today(date: Date): string {
-  return toNhkFormat(date);
-}
-
-/**
- * 指定した日付を含めた1週間分の日付をJSTのYYYY-MM-DD形式で返す
- * @param date
- * @returns
- */
-export function week(date: Date): string[] {
-  const weekDates = getNextWeekDates(date);
-  return weekDates.map((date) => toNhkFormat(date));
-}
-
-// 与えられたDateオブジェクトの次の日のDateオブジェクトを返す
-function getNextDate(date: Date) {
-  const nextDate = new Date(date);
-  nextDate.setDate(date.getDate() + 1);
-  return nextDate;
-}
-
-// 与えられたDateオブジェクトの日付から1週間分の日付のDateオブジェクトの配列を返す
-function getNextWeekDates(date: Date) {
-  const weekDates: Date[] = [];
-  for (let i = 0; i < 7; i++) {
-    weekDates.push(date);
-    date = getNextDate(date);
-  }
-  return weekDates;
-}
-
-/**
- * DateオブジェクトをJSTのYYYY-MM-DDに変換する
- * @param date Dateオブジェクト
- * @returns YYYY-MM-DD
- */
-function toNhkFormat(dateObject: Date) {
-  const { year, month, date } = getJSTDateParts(dateObject);
-  return `${year}-${month}-${date}`;
-}
-
-/**
- * DateオブジェクトをJSTに変換したうえで各日時ごとに取得する
- * @param rawDate JSTに変換したいDateオブジェクト
- * @returns JSTの{年,月,日,時,分,秒}
- */
-function getJSTDateParts(dateObject: Date) {
-  // 日本時間（JST）に変換
-  // UTC+9時間を加算
-
-  // ローカルタイムをUTCタイムスタンプに変換
-  const utcTimestamp = dateObject.getTime();
-  // 9時間をミリ秒に変換
-  const jstOffset = 9 * 60 * 60 * 1000;
-
-  const jstTimestamp = utcTimestamp + jstOffset;
-  const jstDate = new Date(jstTimestamp);
-
-  return {
-    "year": jstDate.getUTCFullYear(),
-    "month": ("0" + (jstDate.getUTCMonth() + 1)).slice(-2), // 月は0から始まるため1を加算
-    "date": ("0" + jstDate.getUTCDate()).slice(-2),
-    "hours": ("0" + jstDate.getUTCHours()).slice(-2),
-    "minutes": ("0" + jstDate.getUTCMinutes()).slice(-2),
-    "seconds": ("0" + jstDate.getUTCSeconds()).slice(-2),
-  };
-}
-
-/**
- * ISO8601拡張形式の日付をJSTの MM/DD hh:mm 形式に変換する
- * @param iso8601extDate ISO8601拡張形式に日付文字列
- */
-export function toJSTMMDDhhmmFormat(iso8601extDate: string) {
-  const { month, date, hours, minutes } = getJSTDateParts(
-    new Date(iso8601extDate),
-  );
-  return `${month}/${date} ${hours}:${minutes}`;
-}
-
-/**
  * 日本時間ISO8601拡張形式の日付をJSTの MM/DD(曜日) hh:mm 形式に変換する
  * @param from 開始日時 例: 2025-03-13T20:41:00+09:00
  * @param to 終了日時 例: 2025-03-27T20:41:00+09:00
@@ -93,12 +9,16 @@ export function formatPeriod(from: string, to: string): string {
 
   const format = (dateStr: string) => {
     const date = new Date(dateStr);
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const weekday = weekdays[date.getDay()];
-    const time = date.toTimeString().slice(0, 5); // "HH:MM"
+    const jstDate = new Date(
+      date.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }),
+    );
+    const month = String(jstDate.getMonth() + 1).padStart(2, "0");
+    const day = String(jstDate.getDate()).padStart(2, "0");
+    const weekday = weekdays[jstDate.getDay()];
+    const hours = String(jstDate.getHours()).padStart(2, "0");
+    const minutes = String(jstDate.getMinutes()).padStart(2, "0");
 
-    return `${month}/${day}(${weekday}) ${time}`;
+    return `${month}/${day}(${weekday}) ${hours}:${minutes}`;
   };
 
   return `${format(from)} ~ ${format(to)}`;
